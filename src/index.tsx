@@ -1,20 +1,15 @@
 import './index.css'
 
-import { StrictMode } from 'react'
 import ReactDOM from 'react-dom/client'
 
-import App from './App'
+import App from './view/App'
 
 class Index {
     constructor() {
         const root = ReactDOM.createRoot(
             document.getElementById('root') as HTMLElement
         )
-        root.render(
-            <StrictMode>
-                <App />
-            </StrictMode>
-        )
+        root.render(<App />)
     }
 }
 new Index()
