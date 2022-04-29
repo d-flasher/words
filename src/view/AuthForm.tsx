@@ -1,3 +1,4 @@
+import Alert from '@mui/material/Alert'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -15,21 +16,24 @@ const AuthForm: FC = () => {
     const [password, setPassword] = useState('')
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
+    const [signinError, setSigninError] = useState('')
     const authService = useNotNullContext(AuthContext)
 
     const isSigninEnabled = Boolean(email) && Boolean(password)
 
     const onEmailChanges = (e: ChangeEvent<HTMLInputElement>) => {
         setEmailError('')
+        setSigninError('')
         setEmail(e.target.value)
     }
 
     const onPasswordChanges = (e: ChangeEvent<HTMLInputElement>) => {
         setPasswordError('')
+        setSigninError('')
         setPassword(e.target.value)
     }
 
-    const onSigninClick = () => {
+    const onSigninClick = async () => {
         if (email.length < 3) {
             setEmailError('Must be a least 3 characters')
             return
@@ -40,7 +44,11 @@ const AuthForm: FC = () => {
             return
         }
 
-        authService.signIn(email, password)
+        try {
+            await authService.signIn(email, password)
+        } catch (error) {
+            setSigninError((error as Error).message)
+        }
     }
 
     return (
@@ -48,6 +56,13 @@ const AuthForm: FC = () => {
             <Card variant="outlined">
                 <CardContent>
                     <Grid container spacing={2}>
+                        {
+                            signinError && <Grid item xs={12}>
+                                <Alert severity="error">
+                                    {signinError}
+                                </Alert>
+                            </Grid>
+                        }
                         <Grid item xs={12}>
                             <Typography variant="h5" component="div">
                                 Sign in with email
