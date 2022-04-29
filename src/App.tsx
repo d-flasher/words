@@ -4,7 +4,7 @@ import { FC } from 'react'
 
 const App: FC = () => {
     return (
-        <div></div>
+        <div>Word app</div>
     )
 }
 export default App
