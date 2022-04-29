@@ -2,5 +2,6 @@
     "javascript.format.semicolons": "remove",
     "typescript.format.semicolons": "remove",
     "typescriptHero.imports.insertSemicolons": false,
-    "editor.tabSize": 4
+    "editor.tabSize": 4,
+    "typescriptHero.imports.stringQuoteStyle": "'"
 }
