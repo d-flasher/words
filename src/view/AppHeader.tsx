@@ -28,7 +28,11 @@ const AppHeader: FC = () => {
 
                 {
                     user &&
-                    <IconButton aria-label="sign out" onClick={onSignout}>
+                    <IconButton
+                        aria-label="sign out"
+                        placeholder="sign out button"
+                        onClick={onSignout}
+                    >
                         <Logout />
                     </IconButton>
                 }
