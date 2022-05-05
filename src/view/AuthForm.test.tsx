@@ -76,7 +76,7 @@ describe('AuthForm', () => {
         fireEvent.click(signinBtn)
         expect(await findByText(/error test message/i)).toBeInTheDocument()
 
-        TestUtils.changeInputValue(emailInput, 'test@email.ru')
+        TestUtils.changeInputValue(emailInput, 't...')
         expect(queryByText(/error test message/i)).not.toBeInTheDocument()
     })
 })
