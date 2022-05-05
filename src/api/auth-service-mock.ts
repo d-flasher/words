@@ -4,7 +4,8 @@ import { IAuthService, IUser } from './auth-service'
 
 export class AuthServiceMock implements IAuthService {
     constructor(
-        private _mode: 'regular' | 'error'
+        private _mode: 'regular' | 'error',
+        private _responceDelay = 30,
     ) { }
 
     private _emitter = new Emitter<IUser | null>()
@@ -21,7 +22,7 @@ export class AuthServiceMock implements IAuthService {
                     case 'error':
                         reject(new Error('Error test message'))
                 }
-            }, 30)
+            }, this._responceDelay)
         })
     }
 
@@ -32,6 +33,7 @@ export class AuthServiceMock implements IAuthService {
 
     onAuthStateChanged(handler: (user: IUser | null) => void): Unsubscribe {
         this._emitter.add(handler)
+        setTimeout(() => this._emitter.emit(null), this._responceDelay)
         return () => this._emitter.remove(handler)
     }
 }
