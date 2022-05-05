@@ -1,13 +1,12 @@
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 
 import { IUser } from '../api/auth-service'
-import { useNotNullContext } from '../utils/common-types'
 import { AuthContext } from './App'
 import AuthForm from './AuthForm'
 
 const AppBody: FC = () => {
     const [user, setUser] = useState<IUser | null | undefined>(undefined)
-    const authService = useNotNullContext(AuthContext)
+    const authService = useContext(AuthContext)
 
     useEffect(() => {
         return authService.onAuthStateChanged(user => {

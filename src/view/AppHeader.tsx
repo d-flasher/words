@@ -3,15 +3,14 @@ import AppBar from '@mui/material/AppBar'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 
 import { IUser } from '../api/auth-service'
-import { useNotNullContext } from '../utils/common-types'
 import { AuthContext } from './App'
 
 const AppHeader: FC = () => {
     const [user, setUser] = useState<IUser | null>(null)
-    const authService = useNotNullContext(AuthContext)
+    const authService = useContext(AuthContext)
 
     useEffect(() => {
         return authService.onAuthStateChanged(user => {
