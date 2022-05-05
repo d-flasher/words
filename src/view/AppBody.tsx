@@ -1,4 +1,3 @@
-import Button from '@mui/material/Button'
 import { FC, useEffect, useState } from 'react'
 
 import { IUser } from '../api/auth-service'
@@ -19,12 +18,7 @@ const AppBody: FC = () => {
     if (user === undefined) return <p>Loading...</p>
     if (user === null) return <AuthForm></AuthForm>
     return (
-        <Button
-            variant="contained"
-            onClick={() => authService.signOut()}
-        >
-            Sign out
-        </Button>
+        <div></div>
     )
 }
 export default AppBody
