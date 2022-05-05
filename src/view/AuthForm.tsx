@@ -6,9 +6,8 @@ import Container from '@mui/material/Container'
 import Grid from '@mui/material/Grid'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { ChangeEvent, FC, useState } from 'react'
+import { ChangeEvent, FC, useContext, useState } from 'react'
 
-import { useNotNullContext } from '../utils/common-types'
 import { AuthContext } from './App'
 
 const AuthForm: FC = () => {
@@ -17,7 +16,7 @@ const AuthForm: FC = () => {
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [signinError, setSigninError] = useState('')
-    const authService = useNotNullContext(AuthContext)
+    const authService = useContext(AuthContext)
 
     const isSigninEnabled = Boolean(email) && Boolean(password)
 
