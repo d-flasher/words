@@ -36,7 +36,7 @@ describe('AuthForm', () => {
         TestUtils.elIsAvailable(signinBtn)
     })
 
-    test('signin', () => {
+    test('signin', async () => {
         const { getByLabelText, getByPlaceholderText, queryByText } = render(
             <AuthContext.Provider value={new AuthServiceMock('regular')}>
                 <AuthForm></AuthForm>
@@ -54,10 +54,10 @@ describe('AuthForm', () => {
         expect(queryByText(/error test message/i)).not.toBeInTheDocument()
         const fn = jest.spyOn(AuthServiceMock.prototype, 'signIn').mockImplementation(() => Promise.resolve())
 
-        fireEvent.click(signinBtn)
+        await waitFor(() => fireEvent.click(signinBtn))
         expect(fn).toBeCalledTimes(1)
         expect(fn).toBeCalledWith<Parameters<typeof AuthServiceMock.prototype.signIn>>(email, password)
-        waitFor(() => expect(queryByText(/error test message/i)).not.toBeInTheDocument())
+        await waitFor(() => expect(queryByText(/error test message/i)).not.toBeInTheDocument())
     })
 
     test('signin error handling', async () => {
