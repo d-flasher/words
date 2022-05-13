@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { render, waitForElementToBeRemoved } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 
 import { IAuthService } from '../api/auth-service'
@@ -15,10 +15,13 @@ describe('AppBody', () => {
                 <AppBody></AppBody>
             </AuthContext.Provider>
         )
-        expect(queryByText('Loading...')).toBeInTheDocument()
+        const loadingEl = queryByText('Loading...')
+        expect(loadingEl).toBeInTheDocument()
+
+        await waitForElementToBeRemoved(loadingEl)
+        expect(queryByText(AUTH_FORM_HEADER)).toBeInTheDocument()
 
         await act(() => authService.signIn('1', '2'))
-        expect(queryByText('Loading...')).not.toBeInTheDocument()
         expect(queryByText(AUTH_FORM_HEADER)).not.toBeInTheDocument()
 
         await act(() => authService.signOut())
