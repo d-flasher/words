@@ -10,7 +10,7 @@ describe('AppBody', () => {
     test('auth state changes handling', async () => {
         const authService: IAuthService = new AuthServiceMock('regular')
         const AUTH_FORM_HEADER = 'Sign in with email'
-        const { queryByText } = render(
+        const { queryByText, queryByTestId } = render(
             <AuthContext.Provider value={authService}>
                 <AppBody></AppBody>
             </AuthContext.Provider>
@@ -23,8 +23,10 @@ describe('AppBody', () => {
 
         await act(() => authService.signIn('1', '2'))
         expect(queryByText(AUTH_FORM_HEADER)).not.toBeInTheDocument()
+        expect(queryByTestId('body-outlet')).toBeInTheDocument()
 
         await act(() => authService.signOut())
         expect(queryByText(AUTH_FORM_HEADER)).toBeInTheDocument()
+        expect(queryByTestId('body-outlet')).not.toBeInTheDocument()
     })
 })

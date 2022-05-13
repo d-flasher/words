@@ -1,7 +1,10 @@
+import Container from '@mui/material/Container'
 import { FC, useContext, useEffect, useState } from 'react'
+import { BrowserRouter } from 'react-router-dom'
 
 import { IUser } from '../api/auth-service'
 import { AuthContext } from './App'
+import AppRoutes from './AppRoutes'
 import AuthForm from './AuthForm'
 
 const AppBody: FC = () => {
@@ -16,8 +19,13 @@ const AppBody: FC = () => {
 
     if (user === undefined) return <p>Loading...</p>
     if (user === null) return <AuthForm></AuthForm>
+
     return (
-        <div></div>
+        <Container maxWidth="sm">
+            <BrowserRouter>
+                <AppRoutes></AppRoutes>
+            </BrowserRouter>
+        </Container>
     )
 }
 export default AppBody
