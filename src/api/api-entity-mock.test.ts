@@ -1,6 +1,6 @@
 import { IWord } from '../model/Word'
 import { OnChangesFn } from './api-entity'
-import { ApiWordMock } from './api-word-mock'
+import { ApiWordMock } from './api-entity-mock'
 import MockError from './mock-error'
 
 describe('ApiWordMock', () => {

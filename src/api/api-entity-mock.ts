@@ -5,35 +5,38 @@ import Utils from '../utils/Utils'
 import { IApiEntity, OnChangesFn } from './api-entity'
 import MockError from './mock-error'
 
-type ChangesCallbackParameter = Parameters<OnChangesFn<IWord>>[0]
+type ChangesCallbackParameter<T> = Parameters<OnChangesFn<T>>[0]
 
-export class ApiWordMock implements IApiEntity<IWord, IWordPayload> {
+export abstract class ApiEntityMock<T extends { id: string }, K> implements IApiEntity<T, K> {
 
     constructor(
         private _mode: 'regular' | 'error',
         private _responceDelay = 30,
     ) { }
 
-    private _words: IWord[] = []
-    private _emitter = new Emitter<ChangesCallbackParameter>()
-    private _eCallback: EmitterCallback<ChangesCallbackParameter> | null = null
+    protected abstract _createFromPayload(payload: K): T
+    protected abstract _editFromPayload(target: T, payload: K): void
 
-    changesTracking(onChanges: OnChangesFn<IWord>): Unsubscribe {
+    private _entities: T[] = []
+    private _emitter = new Emitter<ChangesCallbackParameter<T>>()
+    private _eCallback: EmitterCallback<ChangesCallbackParameter<T>> | null = null
+
+    changesTracking(onChanges: OnChangesFn<T>): Unsubscribe {
         this._eCallback = changesData => onChanges(changesData)
         this._emitter.add(this._eCallback)
-        if (this._words.length > 0) this._emitter.emit(this._words.map(item => ({ type: 'added', data: item })))
+        if (this._entities.length > 0) this._emitter.emit(this._entities.map(item => ({ type: 'added', data: item })))
         return () => {
             if (this._eCallback) this._emitter.remove(this._eCallback)
         }
     }
 
-    get(id: string): Promise<IWord | null> {
+    get(id: string): Promise<T | null> {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 switch (this._mode) {
                     case 'regular':
-                        const word = this._words.find(item => item.id === id)
-                        resolve(word ? word : null)
+                        const entity = this._entities.find(item => item.id === id)
+                        resolve(entity ? entity : null)
                         break
 
                     case 'error':
@@ -44,12 +47,12 @@ export class ApiWordMock implements IApiEntity<IWord, IWordPayload> {
         })
     }
 
-    getList(): Promise<IWord[]> {
+    getList(): Promise<T[]> {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 switch (this._mode) {
                     case 'regular':
-                        resolve(this._words)
+                        resolve(this._entities)
                         break
 
                     case 'error':
@@ -60,15 +63,15 @@ export class ApiWordMock implements IApiEntity<IWord, IWordPayload> {
         })
     }
 
-    create(payload: IWordPayload): Promise<IWord> {
+    create(payload: K): Promise<T> {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 switch (this._mode) {
                     case 'regular':
-                        const word = <IWord>{ id: Utils.uuid(), value: payload.value, translate: payload.translate }
-                        this._words.push(word)
-                        this._emitter.emit([{ type: 'added', data: word }])
-                        resolve(word)
+                        const entity = this._createFromPayload(payload)
+                        this._entities.push(entity)
+                        this._emitter.emit([{ type: 'added', data: entity }])
+                        resolve(entity)
                         break
 
                     case 'error':
@@ -79,15 +82,14 @@ export class ApiWordMock implements IApiEntity<IWord, IWordPayload> {
         })
     }
 
-    edit(id: string, payload: IWordPayload): Promise<void> {
+    edit(id: string, payload: K): Promise<void> {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 switch (this._mode) {
                     case 'regular':
-                        const word = this._words.find(word => word.id === id)!
-                        word.value = payload.value
-                        word.translate = payload.translate
-                        this._emitter.emit([{ type: 'edited', data: word }])
+                        const entity = this._entities.find(item => item.id === id)!
+                        this._editFromPayload(entity, payload)
+                        this._emitter.emit([{ type: 'edited', data: entity }])
                         resolve()
                         break
 
@@ -104,10 +106,10 @@ export class ApiWordMock implements IApiEntity<IWord, IWordPayload> {
             setTimeout(() => {
                 switch (this._mode) {
                     case 'regular':
-                        const foundIndex = this._words.findIndex(item => item.id === id)!
-                        const word = this._words[foundIndex]
-                        this._words.splice(foundIndex, 1)
-                        this._emitter.emit([{ type: 'removed', data: word }])
+                        const foundIndex = this._entities.findIndex(item => item.id === id)!
+                        const entity = this._entities[foundIndex]
+                        this._entities.splice(foundIndex, 1)
+                        this._emitter.emit([{ type: 'removed', data: entity }])
                         resolve()
                         break
 
@@ -117,5 +119,16 @@ export class ApiWordMock implements IApiEntity<IWord, IWordPayload> {
                 }
             }, this._responceDelay)
         })
+    }
+}
+
+export class ApiWordMock extends ApiEntityMock<IWord, IWordPayload> {
+    protected _createFromPayload(payload: IWordPayload): IWord {
+        return { id: Utils.uuid(), value: payload.value, translate: payload.translate }
+    }
+
+    protected _editFromPayload(target: IWord, payload: IWordPayload): void {
+        target.value = payload.value
+        target.translate = payload.translate
     }
 }
