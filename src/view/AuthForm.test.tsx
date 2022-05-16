@@ -52,7 +52,7 @@ describe('AuthForm', () => {
         TestUtils.changeInputValue(passwordInput, password)
 
         expect(queryByText(/error test message/i)).not.toBeInTheDocument()
-        const fn = jest.spyOn(AuthServiceMock.prototype, 'signIn').mockImplementation(() => Promise.resolve())
+        const fn = jest.spyOn(AuthServiceMock.prototype, 'signIn').mockImplementation(() => Promise.resolve({}))
 
         await waitFor(() => fireEvent.click(signinBtn))
         expect(fn).toBeCalledTimes(1)
