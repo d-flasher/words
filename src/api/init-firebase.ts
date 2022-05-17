@@ -5,13 +5,12 @@ import { connectFirestoreEmulator, getFirestore } from 'firebase/firestore'
 export class InitFirebase {
     constructor() {
         initializeApp({
-            apiKey: "AIzaSyDNJbAifhsCUYwsy_srODazpr_4bxcvR6c",
-            authDomain: "test-project-b6310.firebaseapp.com",
-            databaseURL: "https://test-project-b6310-default-rtdb.europe-west1.firebasedatabase.app",
-            projectId: "test-project-b6310",
-            storageBucket: "test-project-b6310.appspot.com",
-            messagingSenderId: "109030096181",
-            appId: "1:109030096181:web:c0ac0c1053c471b904607c"
+            apiKey: "AIzaSyDgccCxTZqAZtyrJt2Wc9n60MewqR_rtqA",
+            authDomain: "words-6050c.firebaseapp.com",
+            projectId: "words-6050c",
+            storageBucket: "words-6050c.appspot.com",
+            messagingSenderId: "899389753457",
+            appId: "1:899389753457:web:13b03b8ae1fc0d4d8973d0"
         })
 
         const db = getFirestore()
