@@ -1,27 +1,28 @@
 import { makeAutoObservable } from 'mobx'
 
+import IEntities from './Entities'
 import Word from './Word'
 
-class Words {
+class Words implements IEntities<Word> {
     constructor() {
         makeAutoObservable(this)
     }
 
-    private _words: Word[] = [];
-    get words(): Readonly<Word[]> { return this._words }
+    private _list: Word[] = [];
+    get list(): Readonly<Word[]> { return this._list }
 
-    private _error: Error | null = null
+    private _error: Error | undefined
     get error() { return this._error }
-    set error(value: Error | null) { this._error = value }
+    set error(value: Error | undefined) { this._error = value }
 
-    addWord(v: Word) { this._words.push(v) }
-    removeWord(v: Word) {
-        const index = this._words.indexOf(v)
-        this._words.splice(index, 1)
+    add(v: Word) { this._list.push(v) }
+    remove(v: Word) {
+        const index = this._list.indexOf(v)
+        this._list.splice(index, 1)
     }
 
-    getWordById(wordId: string) {
-        return this._words.find(word => word.id === wordId)
+    getById(wordId: string) {
+        return this._list.find(word => word.id === wordId)
     }
 }
 export default Words

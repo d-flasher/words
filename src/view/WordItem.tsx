@@ -9,7 +9,7 @@ import { AppModelContext } from '../model/AppModel'
 const WordItem: FC<{ id: string }> = ({ id }) => {
     const { words } = useContext(AppModelContext)
 
-    const data = words.getWordById(id)
+    const data = words.getById(id)
     if (data == null) {
         const msg = `<не найдено для id: "${id}">`
         return <span>{msg}</span>

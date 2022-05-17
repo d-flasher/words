@@ -1,13 +1,13 @@
 import { makeAutoObservable } from 'mobx'
 
+import IEntity from './Entity'
+
 export interface IWordPayload {
     value?: string | null
     translate?: string | null
 }
 
-export interface IWord extends IWordPayload {
-    id: string
-}
+export interface IWord extends IEntity, IWordPayload { }
 
 class Word implements IWord {
     constructor(

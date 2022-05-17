@@ -1,3 +1,4 @@
+import IEntity from '../model/Entity'
 import { IWord, IWordPayload } from '../model/Word'
 import { Unsubscribe } from '../utils/common-types'
 import Emitter, { EmitterCallback } from '../utils/Emitter'
@@ -7,7 +8,7 @@ import MockError from './mock-error'
 
 type ChangesCallbackParameter<T> = Parameters<OnChangesFn<T>>[0]
 
-export abstract class ApiEntityMock<T extends { id: string }, K> implements IApiEntity<T, K> {
+export abstract class ApiEntityMock<T extends IEntity, K> implements IApiEntity<T, K> {
 
     constructor(
         private _mode: 'regular' | 'error',
