@@ -1,0 +1,10 @@
+import IEntity from './Entity'
+
+interface IEntities<T extends IEntity> {
+    get list(): Readonly<T[]>
+    error: Error | undefined
+    add(v: T): void
+    remove(v: T): void
+    getById(wordId: string): T | undefined
+}
+export default IEntities

@@ -1,3 +1,4 @@
+import IEntity from '../model/Entity'
 import { IWord, IWordPayload } from '../model/Word'
 import { Unsubscribe } from '../utils/common-types'
 import Emitter, { EmitterCallback } from '../utils/Emitter'
@@ -7,7 +8,7 @@ import MockError from './mock-error'
 
 type ChangesCallbackParameter<T> = Parameters<OnChangesFn<T>>[0]
 
-export abstract class ApiEntityMock<T extends { id: string }, K> implements IApiEntity<T, K> {
+export abstract class ApiEntityMock<T extends IEntity, K> implements IApiEntity<T, K> {
 
     constructor(
         private _mode: 'regular' | 'error',
@@ -24,7 +25,7 @@ export abstract class ApiEntityMock<T extends { id: string }, K> implements IApi
     changesTracking(onChanges: OnChangesFn<T>): Unsubscribe {
         this._eCallback = changesData => onChanges(changesData)
         this._emitter.add(this._eCallback)
-        if (this._entities.length > 0) this._emitter.emit(this._entities.map(item => ({ type: 'added', data: item })))
+        this._emitter.emit(this._entities.map(item => ({ type: 'added', data: item })))
         return () => {
             if (this._eCallback) this._emitter.remove(this._eCallback)
         }

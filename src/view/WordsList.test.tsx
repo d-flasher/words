@@ -15,14 +15,14 @@ describe('WordsList', () => {
         expect(queryAllByRole('listitem').length).toEqual(0)
 
         const word1 = new Word('id1')
-        model.words.addWord(word1)
+        model.words.add(word1)
         expect(queryAllByRole('listitem').length).toEqual(1)
 
         const word2 = new Word('id2')
-        model.words.addWord(word2)
+        model.words.add(word2)
         expect(queryAllByRole('listitem').length).toEqual(2)
 
-        model.words.removeWord(word1)
+        model.words.remove(word1)
         expect(queryAllByRole('listitem').length).toEqual(1)
     })
 

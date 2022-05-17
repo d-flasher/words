@@ -9,30 +9,31 @@ describe('ApiWordMock', () => {
         const fn = jest.fn()
 
         api.changesTracking(fn)
-        expect(fn).toBeCalledTimes(0)
+        expect(fn).toBeCalledTimes(1)
+        expect(fn).toBeCalledWith([])
 
         // create
         const createdWord = await api.create({ value: 'v1', translate: 't1' })
-        expect(fn).toBeCalledTimes(1)
+        expect(fn).toBeCalledTimes(2)
         expect(fn).toBeCalledWith<Parameters<OnChangesFn<IWord>>>([{ type: 'added', data: createdWord }])
 
         // get
         const foundWord = await api.get(createdWord.id)
         expect(foundWord).toBe(createdWord)
-        expect(fn).toBeCalledTimes(1)
+        expect(fn).toBeCalledTimes(2)
 
         // edit
         await api.edit(createdWord.id, { value: 'v11', translate: 't11' })
         const foundEditedWord = await api.get(createdWord.id)
         expect(foundEditedWord).toEqual<IWord>({ id: createdWord.id, value: 'v11', translate: 't11' })
-        expect(fn).toBeCalledTimes(2)
+        expect(fn).toBeCalledTimes(3)
         expect(fn).toBeCalledWith<Parameters<OnChangesFn<IWord>>>([{ type: 'edited', data: createdWord }])
 
         // remove
         await api.remove(createdWord.id)
         const foundRemovedWord = await api.get(createdWord.id)
         expect(foundRemovedWord).toEqual(null)
-        expect(fn).toBeCalledTimes(3)
+        expect(fn).toBeCalledTimes(4)
         expect(fn).toBeCalledWith<Parameters<OnChangesFn<IWord>>>([{ type: 'removed', data: createdWord }])
     })
 
@@ -42,14 +43,14 @@ describe('ApiWordMock', () => {
 
         const unsubscriber =
             api.changesTracking(fn)
-        expect(fn).toBeCalledTimes(0)
+        expect(fn).toBeCalledTimes(1)
 
         await api.create({ value: 'v1', translate: 't1' })
-        expect(fn).toBeCalledTimes(1)
+        expect(fn).toBeCalledTimes(2)
 
         unsubscriber()
         await api.create({ value: 'v2', translate: 't2' })
-        expect(fn).toBeCalledTimes(1)
+        expect(fn).toBeCalledTimes(2)
     })
 
     test('observer after created', async () => {
@@ -74,7 +75,7 @@ describe('ApiWordMock', () => {
         const fn = jest.fn()
 
         api.changesTracking(fn)
-        expect(fn).toBeCalledTimes(0)
+        expect(fn).toBeCalledTimes(1)
 
         try {
             await api.create({ value: 'v1', translate: 't1' })
@@ -82,6 +83,6 @@ describe('ApiWordMock', () => {
             expect(error).toBeInstanceOf(MockError)
         }
 
-        expect(fn).toBeCalledTimes(0)
+        expect(fn).toBeCalledTimes(1)
     })
 })

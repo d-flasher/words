@@ -20,7 +20,7 @@ describe('WordItem', () => {
     test('view', () => {
         const model = new AppModel()
         const word = new Word('id1')
-        model.words.addWord(word)
+        model.words.add(word)
         const { queryByText } = render(
             <AppModelContext.Provider value={model}>
                 <WordItem id="id1"></WordItem>

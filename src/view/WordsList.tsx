@@ -14,7 +14,7 @@ const WordsList: FC = () => {
         return <Alert severity="error">{words.error.message}</Alert>
     }
 
-    const list = words.words.map(item => (
+    const list = words.list.map(item => (
         <WordItem key={item.id} id={item.id}></WordItem>
     ))
 
