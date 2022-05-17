@@ -24,7 +24,7 @@ export abstract class ApiEntityMock<T extends { id: string }, K> implements IApi
     changesTracking(onChanges: OnChangesFn<T>): Unsubscribe {
         this._eCallback = changesData => onChanges(changesData)
         this._emitter.add(this._eCallback)
-        if (this._entities.length > 0) this._emitter.emit(this._entities.map(item => ({ type: 'added', data: item })))
+        this._emitter.emit(this._entities.map(item => ({ type: 'added', data: item })))
         return () => {
             if (this._eCallback) this._emitter.remove(this._eCallback)
         }
