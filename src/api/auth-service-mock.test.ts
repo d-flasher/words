@@ -1,7 +1,7 @@
 import { waitFor } from '@testing-library/react'
 
-import { IAuthService, IUser } from './auth-service'
-import { AuthServiceMock } from './auth-service-mock'
+import IAuthService, { IUser } from './auth-service'
+import AuthServiceMock from './auth-service-mock'
 import MockError from './mock-error'
 
 type TestUser = IUser | null

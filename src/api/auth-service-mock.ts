@@ -1,9 +1,9 @@
 import { MockType, Unsubscribe } from '../utils/common-types'
 import Emitter from '../utils/emitter'
-import { IAuthService, IUser } from './auth-service'
+import IAuthService, { IUser } from './auth-service'
 import MockError from './mock-error'
 
-export class AuthServiceMock implements IAuthService {
+class AuthServiceMock implements IAuthService {
     constructor(
         private _mode: MockType,
         private _responceDelay = 30,
@@ -49,3 +49,4 @@ export class AuthServiceMock implements IAuthService {
         return () => this._emitter.remove(handler)
     }
 }
+export default AuthServiceMock

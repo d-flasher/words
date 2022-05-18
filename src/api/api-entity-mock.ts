@@ -3,7 +3,7 @@ import { IWord, IWordPayload } from '../model/word'
 import { MockType, Unsubscribe } from '../utils/common-types'
 import Emitter, { EmitterCallback } from '../utils/emitter'
 import Utils from '../utils/utils'
-import { IApiEntity, OnChangesFn } from './api-entity'
+import IApiEntity, { OnChangesFn } from './api-entity'
 import MockError from './mock-error'
 
 type ChangesCallbackParameter<T> = Parameters<OnChangesFn<T>>[0]

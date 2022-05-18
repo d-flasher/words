@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react'
 
-export class TestUtils {
+class TestUtils {
 
     static elIsAvailable(el: HTMLElement, isEnabled = true) {
         expect(el).toBeInTheDocument()
@@ -13,3 +13,4 @@ export class TestUtils {
         fireEvent.change(el, { target: { value: newValue } })
     }
 }
+export default TestUtils
