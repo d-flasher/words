@@ -1,5 +1,5 @@
-import Word, { IWord, IWordPayload } from '../model/Word'
-import Words from '../model/Words'
+import Word, { IWord, IWordPayload } from '../model/word'
+import Words from '../model/words'
 import EntityController from './entity-controller'
 
 class WordsController extends EntityController<Words, Word, IWord, IWordPayload> {

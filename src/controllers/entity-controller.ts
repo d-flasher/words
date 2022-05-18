@@ -1,6 +1,6 @@
 import { IApiEntity } from '../api/api-entity'
-import IEntities from '../model/Entities'
-import IEntity from '../model/Entity'
+import IEntities from '../model/entities'
+import IEntity from '../model/entity'
 
 abstract class EntityController<TModels extends IEntities<any>, TClass, TInterface extends IEntity, TPayload> {
     constructor(

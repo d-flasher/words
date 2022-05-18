@@ -1,7 +1,7 @@
 import { render } from '@testing-library/react'
 
-import AppModel, { AppModelContext } from '../model/AppModel'
-import Word from '../model/Word'
+import AppModel, { AppModelContext } from '../model/app-model'
+import Word from '../model/word'
 import WordsList from './WordsList'
 
 describe('WordsList', () => {

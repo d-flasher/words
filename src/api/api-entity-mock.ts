@@ -1,8 +1,8 @@
-import IEntity from '../model/Entity'
-import { IWord, IWordPayload } from '../model/Word'
+import IEntity from '../model/entity'
+import { IWord, IWordPayload } from '../model/word'
 import { MockType, Unsubscribe } from '../utils/common-types'
-import Emitter, { EmitterCallback } from '../utils/Emitter'
-import Utils from '../utils/Utils'
+import Emitter, { EmitterCallback } from '../utils/emitter'
+import Utils from '../utils/utils'
 import { IApiEntity, OnChangesFn } from './api-entity'
 import MockError from './mock-error'
 

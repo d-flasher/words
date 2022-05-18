@@ -1,5 +1,5 @@
 import { MockType, Unsubscribe } from '../utils/common-types'
-import Emitter from '../utils/Emitter'
+import Emitter from '../utils/emitter'
 import { IAuthService, IUser } from './auth-service'
 import MockError from './mock-error'
 

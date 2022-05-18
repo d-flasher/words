@@ -1,7 +1,7 @@
 import { makeAutoObservable } from 'mobx'
 
-import IEntities from './Entities'
-import Word from './Word'
+import IEntities from './entities'
+import Word from './word'
 
 class Words implements IEntities<Word> {
     constructor() {
