@@ -39,7 +39,7 @@ describe('WordsList', () => {
         model.words.error = new Error(ERROR_TEXT)
         expect(queryByText(ERROR_TEXT)).toBeInTheDocument()
 
-        model.words.error = null
+        model.words.error = undefined
         expect(queryByText(ERROR_TEXT)).not.toBeInTheDocument()
     })
 })

@@ -1,11 +1,11 @@
-import { Unsubscribe } from '../utils/common-types'
+import { MockType, Unsubscribe } from '../utils/common-types'
 import Emitter from '../utils/Emitter'
 import { IAuthService, IUser } from './auth-service'
 import MockError from './mock-error'
 
 export class AuthServiceMock implements IAuthService {
     constructor(
-        private _mode: 'regular' | 'error',
+        private _mode: MockType,
         private _responceDelay = 30,
     ) { }
 
