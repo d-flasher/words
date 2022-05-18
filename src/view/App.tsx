@@ -1,12 +1,13 @@
 import { CssBaseline } from '@mui/material'
+import Container from '@mui/material/Container'
 import { createContext, FC, StrictMode } from 'react'
 
 import IAuthService from '../api/auth-service'
 import AuthServiceFirebase from '../api/auth-service-firebase'
 import InitFirebase from '../api/init-firebase'
 import AppModel from '../model/app-model'
-import AppBody from './AppBody'
 import AppHeader from './AppHeader'
+import AuthManager from './AuthManager'
 import ThemeContainer from './ThemeContainer'
 
 const createAuthService: () => IAuthService = () => new AuthServiceFirebase()
@@ -25,7 +26,11 @@ const App: FC = () => {
                     <AuthContext.Provider value={createAuthService()}>
                         <AppModelContext.Provider value={createAppModel()}>
                             <AppHeader></AppHeader>
-                            <AppBody></AppBody>
+                            <AuthManager>
+                                <Container maxWidth="sm">
+                                    Words app
+                                </Container>
+                            </AuthManager>
                         </AppModelContext.Provider>
                     </AuthContext.Provider>
                 </CssBaseline>
