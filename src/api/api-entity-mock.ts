@@ -1,6 +1,6 @@
 import IEntity from '../model/Entity'
 import { IWord, IWordPayload } from '../model/Word'
-import { Unsubscribe } from '../utils/common-types'
+import { MockType, Unsubscribe } from '../utils/common-types'
 import Emitter, { EmitterCallback } from '../utils/Emitter'
 import Utils from '../utils/Utils'
 import { IApiEntity, OnChangesFn } from './api-entity'
@@ -11,7 +11,7 @@ type ChangesCallbackParameter<T> = Parameters<OnChangesFn<T>>[0]
 export abstract class ApiEntityMock<T extends IEntity, K> implements IApiEntity<T, K> {
 
     constructor(
-        private _mode: 'regular' | 'error',
+        private _mode: MockType,
         private _responceDelay = 30,
     ) { }
 
