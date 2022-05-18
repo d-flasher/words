@@ -1,4 +1,4 @@
-import { IWord } from '../model/Word'
+import { IWord } from '../model/word'
 import { OnChangesFn } from './api-entity'
 import { ApiWordMock } from './api-entity-mock'
 import MockError from './mock-error'

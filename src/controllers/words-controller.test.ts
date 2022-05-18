@@ -1,5 +1,5 @@
 import { ApiWordMock } from '../api/api-entity-mock'
-import Words from '../model/Words'
+import Words from '../model/words'
 import WordsController from './words-controller'
 
 describe('WordsController', () => {

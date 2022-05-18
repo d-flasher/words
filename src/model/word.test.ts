@@ -1,6 +1,6 @@
 import { autorun } from 'mobx'
 
-import Word from './Word'
+import Word from './word'
 
 describe('Word', () => {
     test('seters', () => {

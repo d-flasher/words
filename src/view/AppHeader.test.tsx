@@ -1,8 +1,8 @@
 import { render } from '@testing-library/react'
 import { act } from 'react-dom/test-utils'
 
-import { IAuthService } from '../api/auth-service'
-import { AuthServiceMock } from '../api/auth-service-mock'
+import IAuthService from '../api/auth-service'
+import AuthServiceMock from '../api/auth-service-mock'
 import { AuthContext } from './App'
 import AppHeader from './AppHeader'
 

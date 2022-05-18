@@ -15,9 +15,9 @@ import {
     where,
 } from 'firebase/firestore'
 
-import { IWord, IWordPayload } from '../model/Word'
+import { IWord, IWordPayload } from '../model/word'
 import { Unsubscribe } from '../utils/common-types'
-import { ChangeData, IApiEntity, OnChangesFn } from './api-entity'
+import IApiEntity, { ChangeData, OnChangesFn } from './api-entity'
 
 interface IWordFirebase extends IWord {
     userId: string

@@ -1,6 +1,6 @@
 import { makeAutoObservable } from 'mobx'
 
-import IEntity from './Entity'
+import IEntity from './entity'
 
 export interface IWordPayload {
     value?: string | null

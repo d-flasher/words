@@ -1,4 +1,4 @@
-import IEntity from './Entity'
+import IEntity from './entity'
 
 interface IEntities<T extends IEntity> {
     get list(): Readonly<T[]>

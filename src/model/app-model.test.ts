@@ -1,4 +1,4 @@
-import AppModel from './AppModel'
+import AppModel from './app-model'
 
 describe('AppModel', () => {
     test('default state', () => {

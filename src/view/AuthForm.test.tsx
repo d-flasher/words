@@ -1,7 +1,7 @@
 import { fireEvent, render, waitFor } from '@testing-library/react'
 
-import { AuthServiceMock } from '../api/auth-service-mock'
-import { TestUtils } from '../utils/TestUtils'
+import AuthServiceMock from '../api/auth-service-mock'
+import TestUtils from '../utils/test-utils'
 import { AuthContext } from './App'
 import AuthForm from './AuthForm'
 
