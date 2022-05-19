@@ -1,18 +1,10 @@
-import { render } from '@testing-library/react'
-
-import AppModel from '../model/app-model'
 import Word from '../model/word'
-import { AppModelContext } from './WordsApp'
+import TestUtils from '../utils/test-utils'
 import WordsList from './WordsList'
 
 describe('WordsList', () => {
     test('view', () => {
-        const model = new AppModel()
-        const { queryAllByRole } = render(
-            <AppModelContext.Provider value={model}>
-                <WordsList></WordsList>
-            </AppModelContext.Provider>
-        )
+        const { queryAllByRole, model } = TestUtils.render(<WordsList></WordsList>)
         expect(queryAllByRole('listitem').length).toEqual(0)
 
         const word1 = new Word('id1')
@@ -28,13 +20,8 @@ describe('WordsList', () => {
     })
 
     test('error handling', () => {
-        const model = new AppModel()
         const ERROR_TEXT = 'Test error'
-        const { queryByText, debug } = render(
-            <AppModelContext.Provider value={model}>
-                <WordsList></WordsList>
-            </AppModelContext.Provider>
-        )
+        const { queryByText, model } = TestUtils.render(<WordsList></WordsList>)
         expect(queryByText(ERROR_TEXT)).not.toBeInTheDocument()
 
         model.words.error = new Error(ERROR_TEXT)
