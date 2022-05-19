@@ -26,5 +26,9 @@ describe('Words', () => {
         expect(words.list).toHaveLength(1)
         expect(words.list[0]).toEqual(word2)
         expect(fn).toBeCalledTimes(4)
+
+        words.clear()
+        expect(words.list).toHaveLength(0)
+        expect(fn).toBeCalledTimes(5)
     })
 })

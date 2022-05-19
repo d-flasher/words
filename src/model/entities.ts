@@ -6,5 +6,6 @@ interface IEntities<T extends IEntity> {
     add(v: T): void
     remove(v: T): void
     getById(wordId: string): T | undefined
+    clear(): void
 }
 export default IEntities
