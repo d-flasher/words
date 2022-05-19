@@ -30,4 +30,12 @@ describe('WordsList', () => {
         model.words.error = undefined
         expect(queryByText(ERROR_TEXT)).not.toBeInTheDocument()
     })
+
+    test('add button', () => {
+        const { getByPlaceholderText, history } = TestUtils.render(<WordsList></WordsList>, '/words')
+
+        const addBtn = getByPlaceholderText('add button')
+        TestUtils.elIsAvailable(addBtn)
+        TestUtils.linkClick(addBtn, '/add', history)
+    })
 })

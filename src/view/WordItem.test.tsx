@@ -1,3 +1,6 @@
+import { fireEvent } from '@testing-library/react'
+
+import { ApiWordMock } from '../api/api-entity-mock'
 import Word from '../model/word'
 import TestUtils from '../utils/test-utils'
 import WordItem from './WordItem'
@@ -27,5 +30,34 @@ describe('WordItem', () => {
         word.setTranslate('t1')
         expect(queryByText(/перевод пустой/i)).not.toBeInTheDocument()
         expect(queryByText(/t1/i)).toBeInTheDocument()
+    })
+
+    test('remove button', () => {
+        const { getByPlaceholderText, model } = TestUtils.render(<WordItem id="id1"></WordItem>)
+        const word = new Word('id1')
+        model.words.add(word)
+
+        const removeBtn = getByPlaceholderText('remove button')
+        TestUtils.elIsAvailable(removeBtn)
+
+        const editWordFn = jest
+            .spyOn(ApiWordMock.prototype, 'remove')
+            .mockImplementation(() => Promise.resolve())
+        fireEvent.click(removeBtn)
+        expect(editWordFn).toBeCalledTimes(1)
+        expect(editWordFn).toHaveBeenCalledWith<Parameters<typeof ApiWordMock.prototype.remove>>('id1')
+    })
+
+    test('select word button', () => {
+        const { getByPlaceholderText, history, model } = TestUtils.render(<WordItem id="id1"></WordItem>)
+        const word = new Word('id1')
+        model.words.add(word)
+
+        const wordItem = getByPlaceholderText('word item')
+        TestUtils.elIsAvailable(wordItem)
+
+        expect(history.location.pathname).toBe('/')
+        fireEvent.click(wordItem)
+        expect(history.location.pathname).toBe('/edit/id1')
     })
 })
