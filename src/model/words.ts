@@ -24,5 +24,9 @@ class Words implements IEntities<Word> {
     getById(wordId: string) {
         return this._list.find(word => word.id === wordId)
     }
+
+    clear() {
+        this._list = []
+    }
 }
 export default Words

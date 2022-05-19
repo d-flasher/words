@@ -1,6 +1,4 @@
-import { render } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
-
+import TestUtils from '../utils/test-utils'
 import NavTabs, { getNavTabs } from './NavTabs'
 
 describe('IndexOutlet', () => {
@@ -20,11 +18,7 @@ describe('IndexOutlet', () => {
         ${'/lessons/add'}     | ${'lessons'}
         ${'/lessons/edit'}    | ${'lessons'}
     `('Tab "$selectedTab" selected for path "$path"', ({ path, selectedTab }) => {
-        const { getByPlaceholderText } = render(
-            <MemoryRouter initialEntries={[path]}>
-                <NavTabs></NavTabs>
-            </MemoryRouter>
-        )
+        const { getByPlaceholderText } = TestUtils.render(<NavTabs></NavTabs>, path)
         tabs.forEach(tab => {
             const tabEl = getByPlaceholderText(tab.placeholder)
             expect(tabEl).toHaveAttribute('aria-selected', String(tab.label === selectedTab))

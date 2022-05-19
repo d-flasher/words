@@ -1,32 +1,19 @@
-import { render } from '@testing-library/react'
-
-import AppModel from '../model/app-model'
 import Word from '../model/word'
-import { AppModelContext } from './App'
+import TestUtils from '../utils/test-utils'
 import WordItem from './WordItem'
 
 describe('WordItem', () => {
     test('error handling', () => {
-        const model = new AppModel()
-        const { queryByText, queryByPlaceholderText } = render(
-            <AppModelContext.Provider value={model}>
-                <WordItem id="id1"></WordItem>
-            </AppModelContext.Provider>
-        )
+        const { queryByText, queryByPlaceholderText } = TestUtils.render(<WordItem id="id1"></WordItem>)
         expect(queryByText(/не найдено/i)).toBeInTheDocument()
         expect(queryByPlaceholderText('edit link')).not.toBeInTheDocument()
         expect(queryByPlaceholderText('remove button')).not.toBeInTheDocument()
     })
 
     test('view', () => {
-        const model = new AppModel()
+        const { queryByText, model } = TestUtils.render(<WordItem id="id1"></WordItem>)
         const word = new Word('id1')
         model.words.add(word)
-        const { queryByText } = render(
-            <AppModelContext.Provider value={model}>
-                <WordItem id="id1"></WordItem>
-            </AppModelContext.Provider>
-        )
 
         expect(queryByText(/значение пустое/i)).toBeInTheDocument()
         expect(queryByText(/перевод пустой/i)).toBeInTheDocument()

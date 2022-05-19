@@ -40,5 +40,14 @@ describe('EntityController', () => {
 
         await api.create({ value: 'v2', translate: 't2' })
         expect(model.list).toHaveLength(2)
+
+        entityController.stop()
+        expect(model.list).toHaveLength(0)
+
+        await api.create({ value: 'v3', translate: 't3' })
+        expect(model.list).toHaveLength(0)
+
+        entityController.start()
+        expect(model.list).toHaveLength(3)
     })
 })

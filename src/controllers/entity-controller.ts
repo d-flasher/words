@@ -1,6 +1,7 @@
 import IApiEntity from '../api/api-entity'
 import IEntities from '../model/entities'
 import IEntity from '../model/entity'
+import { Unsubscribe } from '../utils/common-types'
 
 abstract class EntityController<TModels extends IEntities<any>, TClass, TInterface extends IEntity, TPayload> {
     constructor(
@@ -11,8 +12,11 @@ abstract class EntityController<TModels extends IEntities<any>, TClass, TInterfa
     protected abstract _createEntity(data: TInterface): TClass
     protected abstract _editEntity(target: TClass, data: TInterface): void
 
+    private _unsubscribe: Unsubscribe | undefined
+
     start() {
-        this._api.changesTracking(changesData => {
+        if (this._unsubscribe) return
+        this._unsubscribe = this._api.changesTracking(changesData => {
             if (changesData instanceof Error) {
                 this._model.error = changesData
             } else {
@@ -33,6 +37,14 @@ abstract class EntityController<TModels extends IEntities<any>, TClass, TInterfa
                 })
             }
         })
+    }
+
+    stop() {
+        if (this._unsubscribe) {
+            this._unsubscribe()
+            this._unsubscribe = undefined
+            this._model.clear()
+        }
     }
 }
 export default EntityController

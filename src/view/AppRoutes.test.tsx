@@ -1,7 +1,4 @@
-import { render } from '@testing-library/react'
-import { createMemoryHistory } from 'history'
-import { MemoryRouter, Router } from 'react-router-dom'
-
+import TestUtils from '../utils/test-utils'
 import AppRoutes from './AppRoutes'
 
 describe('AppRoutes', () => {
@@ -14,10 +11,7 @@ describe('AppRoutes', () => {
         ${'/words/edit/1'}      | ${['body-outlet', 'words-outlet', 'word-page-edit']}
         ${'/words/add'}         | ${['body-outlet', 'words-outlet', 'word-page-add']}
     `('in path "$path" to be pages: "$pages"', ({ path, pages }) => {
-        const { queryByTestId } = render(
-            <MemoryRouter initialEntries={[path]}>
-                <AppRoutes></AppRoutes>
-            </MemoryRouter>)
+        const { queryByTestId } = TestUtils.render(<AppRoutes></AppRoutes>, path)
         const pagesAsArr = pages as string[]
         pagesAsArr.forEach(pageTestId => {
             expect(queryByTestId(pageTestId)).toBeInTheDocument()
@@ -25,15 +19,7 @@ describe('AppRoutes', () => {
     })
 
     test('a default redirect to "words"', () => {
-        const history = createMemoryHistory({ initialEntries: ['/'] })
-        render(
-            <Router
-                navigator={history}
-                location={'/'}
-            >
-                <AppRoutes></AppRoutes>
-            </Router>
-        )
+        const { history } = TestUtils.render(<AppRoutes></AppRoutes>, '/')
 
         expect(history.location.pathname).toBe('/words')
     })
