@@ -3,8 +3,11 @@ import { createMemoryHistory } from 'history'
 import { ReactElement } from 'react'
 import { Router } from 'react-router-dom'
 
+import AppApiMock from '../api/app-api-mock'
+import AppController from '../controllers/app-controller'
 import AppModel from '../model/app-model'
-import { ModelContext } from '../view/WordsApp'
+import { ApiContext, ControllerContext, ModelContext } from '../view/WordsApp'
+import { MockType } from './common-types'
 
 class TestUtils {
 
@@ -19,19 +22,25 @@ class TestUtils {
         fireEvent.change(el, { target: { value: newValue } })
     }
 
-    static render(target: ReactElement, path: string = '/') {
+    static render(target: ReactElement, path: string = '/', mockType: MockType = 'regular') {
         const history = createMemoryHistory({ initialEntries: [path] })
         const model = new AppModel()
+        const api = new AppApiMock(mockType)
+        const controller = new AppController(model, api)
         const renderRes = render(
             <ModelContext.Provider value={model}>
-                <Router
-                    navigator={history}
-                    location={path}>
-                    {target}
-                </Router>
+                <ApiContext.Provider value={api}>
+                    <ControllerContext.Provider value={controller}>
+                        <Router
+                            navigator={history}
+                            location={path}>
+                            {target}
+                        </Router>
+                    </ControllerContext.Provider>
+                </ApiContext.Provider>
             </ModelContext.Provider>
         )
-        return { ...renderRes, history, model }
+        return { ...renderRes, history, model, api, controller }
     }
 }
 export default TestUtils
