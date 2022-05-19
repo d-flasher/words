@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react'
-import { createMemoryHistory } from 'history'
+import { createMemoryHistory, MemoryHistory } from 'history'
 import { ReactElement } from 'react'
 import { Router } from 'react-router-dom'
 
@@ -41,6 +41,12 @@ class TestUtils {
             </ModelContext.Provider>
         )
         return { ...renderRes, history, model, api, controller }
+    }
+
+    static linkClick(el: HTMLElement, path: string, history: MemoryHistory) {
+        expect(history.location.pathname).not.toBe(path)
+        fireEvent.click(el)
+        expect(history.location.pathname).toBe(path)
     }
 }
 export default TestUtils
