@@ -2,8 +2,8 @@ import { render } from '@testing-library/react'
 
 import AppModel from '../model/app-model'
 import Word from '../model/word'
-import { AppModelContext } from './App'
 import WordItem from './WordItem'
+import { AppModelContext } from './WordsApp'
 
 describe('WordItem', () => {
     test('error handling', () => {

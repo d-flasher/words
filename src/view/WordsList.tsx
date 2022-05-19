@@ -5,8 +5,8 @@ import List from '@mui/material/List'
 import { observer } from 'mobx-react-lite'
 import { FC, useContext } from 'react'
 
-import { AppModelContext } from './App'
 import WordItem from './WordItem'
+import { AppModelContext } from './WordsApp'
 
 const WordsList: FC = () => {
     const { words } = useContext(AppModelContext)
