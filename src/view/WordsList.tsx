@@ -25,22 +25,23 @@ const WordsList: FC = () => {
         <WordItem key={item.id} id={item.id}></WordItem>
     ))
 
-    return <div>
-        <List
-            dense
-        >
-            {list}
-        </List>
-        <Fab
-            color="primary"
-            aria-label="add"
-            placeholder="add button"
-            sx={{ position: 'absolute', bottom: 16, right: 16, }}
-            onClick={onAddBtn}
-        >
-            <AddIcon />
-        </Fab>
-    </div>
+    return (
+        <div>
+            <List
+                dense
+            >
+                {list}
+            </List>
+            <Fab
+                color="primary"
+                aria-label="add"
+                placeholder="add button"
+                sx={{ position: 'absolute', bottom: 16, right: 16, }}
+                onClick={onAddBtn}
+            >
+                <AddIcon />
+            </Fab>
+        </div>
+    )
 }
-
 export default observer(WordsList)

@@ -57,5 +57,4 @@ const WordItem: FC<{ id: string }> = ({ id }) => {
         </ListItem>
     )
 }
-
 export default observer(WordItem)
