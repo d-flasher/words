@@ -2,7 +2,7 @@ import AppModel from './app-model'
 
 describe('AppModel', () => {
     test('default state', () => {
-        const appModel = new AppModel()
-        expect(appModel.words == null).not.toBeTruthy()
+        const model = new AppModel()
+        expect(model.words == null).not.toBeTruthy()
     })
 })

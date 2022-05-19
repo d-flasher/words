@@ -4,18 +4,18 @@ import { BrowserRouter } from 'react-router-dom'
 import AppModel from '../model/app-model'
 import AppRoutes from './AppRoutes'
 
-const createAppModel = () => new AppModel()
-export const AppModelContext = createContext({} as ReturnType<typeof createAppModel>)
+const createModel = () => new AppModel()
+export const ModelContext = createContext({} as ReturnType<typeof createModel>)
 
 const WordsApp: FC = () => {
-    const [appModel] = useState(() => createAppModel())
+    const [model] = useState(() => createModel())
 
     return (
-        <AppModelContext.Provider value={appModel}>
+        <ModelContext.Provider value={appModel}>
             <BrowserRouter>
                 <AppRoutes></AppRoutes>
             </BrowserRouter>
-        </AppModelContext.Provider>
+        </ModelContext.Provider>
     )
 }
 export default WordsApp

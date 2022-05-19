@@ -4,10 +4,10 @@ import ListItemText from '@mui/material/ListItemText'
 import { observer } from 'mobx-react-lite'
 import { FC, useContext } from 'react'
 
-import { AppModelContext } from './WordsApp'
+import { ModelContext } from './WordsApp'
 
 const WordItem: FC<{ id: string }> = ({ id }) => {
-    const { words } = useContext(AppModelContext)
+    const { words } = useContext(ModelContext)
 
     const data = words.getById(id)
     if (data == null) {

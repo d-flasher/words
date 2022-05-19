@@ -6,10 +6,10 @@ import { observer } from 'mobx-react-lite'
 import { FC, useContext } from 'react'
 
 import WordItem from './WordItem'
-import { AppModelContext } from './WordsApp'
+import { ModelContext } from './WordsApp'
 
 const WordsList: FC = () => {
-    const { words } = useContext(AppModelContext)
+    const { words } = useContext(ModelContext)
     if (words.error) {
         return <Alert severity="error">{words.error.message}</Alert>
     }

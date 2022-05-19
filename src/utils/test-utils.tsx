@@ -4,7 +4,7 @@ import { ReactElement } from 'react'
 import { Router } from 'react-router-dom'
 
 import AppModel from '../model/app-model'
-import { AppModelContext } from '../view/WordsApp'
+import { ModelContext } from '../view/WordsApp'
 
 class TestUtils {
 
@@ -23,13 +23,13 @@ class TestUtils {
         const history = createMemoryHistory({ initialEntries: [path] })
         const model = new AppModel()
         const renderRes = render(
-            <AppModelContext.Provider value={model}>
+            <ModelContext.Provider value={model}>
                 <Router
                     navigator={history}
                     location={path}>
                     {target}
                 </Router>
-            </AppModelContext.Provider>
+            </ModelContext.Provider>
         )
         return { ...renderRes, history, model }
     }
