@@ -1,5 +1,7 @@
 import AddIcon from '@mui/icons-material/Add'
 import Alert from '@mui/material/Alert'
+import Box from '@mui/material/Box'
+import CircularProgress from '@mui/material/CircularProgress'
 import Fab from '@mui/material/Fab'
 import List from '@mui/material/List'
 import { observer } from 'mobx-react-lite'
@@ -15,6 +17,14 @@ const WordsList: FC = () => {
 
     if (words.error) {
         return <Alert severity="error">{words.error.message}</Alert>
+    }
+
+    if (words.isLoading) {
+        return (
+            <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5 }}>
+                <CircularProgress />
+            </Box>
+        )
     }
 
     const onAddBtn = () => {

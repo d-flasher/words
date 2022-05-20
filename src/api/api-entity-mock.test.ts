@@ -1,15 +1,19 @@
+import { waitFor } from '@testing-library/react'
+
 import { IWord } from '../model/word'
 import { OnChangesFn } from './api-entity'
 import { ApiWordMock } from './api-entity-mock'
 import MockError from './mock-error'
 
-describe('ApiWordMock', () => {
+describe('ApiEntityMock', () => {
     test('regular mode', async () => {
         const api = new ApiWordMock('regular')
         const fn = jest.fn()
 
         api.changesTracking(fn)
-        expect(fn).toBeCalledTimes(1)
+        expect(fn).toBeCalledTimes(0)
+
+        await waitFor(() => expect(fn).toBeCalledTimes(1))
         expect(fn).toBeCalledWith([])
 
         // create
@@ -43,7 +47,9 @@ describe('ApiWordMock', () => {
 
         const unsubscriber =
             api.changesTracking(fn)
-        expect(fn).toBeCalledTimes(1)
+        expect(fn).toBeCalledTimes(0)
+
+        await waitFor(() => expect(fn).toBeCalledTimes(1))
 
         await api.create({ value: 'v1', translate: 't1' })
         expect(fn).toBeCalledTimes(2)
@@ -63,7 +69,9 @@ describe('ApiWordMock', () => {
         expect(fn).toBeCalledTimes(0)
 
         api.changesTracking(fn)
-        expect(fn).toBeCalledTimes(1)
+        expect(fn).toBeCalledTimes(0)
+
+        await waitFor(() => expect(fn).toBeCalledTimes(1))
         expect(fn).toBeCalledWith<Parameters<OnChangesFn<IWord>>>([
             { type: 'added', data: word1 },
             { type: 'added', data: word2 },
@@ -75,7 +83,9 @@ describe('ApiWordMock', () => {
         const fn = jest.fn()
 
         api.changesTracking(fn)
-        expect(fn).toBeCalledTimes(1)
+        expect(fn).toBeCalledTimes(0)
+
+        await waitFor(() => expect(fn).toBeCalledTimes(1))
 
         try {
             await api.create({ value: 'v1', translate: 't1' })

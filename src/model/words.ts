@@ -15,6 +15,10 @@ class Words implements IEntities<Word> {
     get error() { return this._error }
     set error(value: Error | undefined) { this._error = value }
 
+    private _isLoading = false
+    get isLoading() { return this._isLoading }
+    set isLoading(value: boolean) { this._isLoading = value }
+
     add(v: Word) { this._list.push(v) }
     remove(v: Word) {
         const index = this._list.indexOf(v)

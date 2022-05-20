@@ -10,5 +10,10 @@ class Utils {
         }
         return u
     }
+
+    static asError(error: unknown) {
+        return error instanceof Error ? error : { message: String(error) }
+    }
+
 }
 export default Utils
