@@ -26,7 +26,7 @@ const WordsApp: FC = () => {
         return () => {
             controller.words.stop()
         }
-    })
+    }, [])
 
     return (
         <ModelContext.Provider value={model}>
