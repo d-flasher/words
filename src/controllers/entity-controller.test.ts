@@ -1,3 +1,5 @@
+import { waitFor } from '@testing-library/react'
+
 import { ApiWordMock } from '../api/api-entity-mock'
 import Words from '../model/words'
 import { MockType } from '../utils/common-types'
@@ -16,6 +18,9 @@ describe('EntityController', () => {
         const { api, model, entityController } = init('regular')
         entityController.start()
         expect(model.list).toHaveLength(0)
+
+        expect(model.isLoading === true).toBeTruthy()
+        await waitFor(() => expect(model.isLoading === false).toBeTruthy())
 
         const createdData = await api.create({ value: 'v1', translate: 't1' })
         expect(model.list).toHaveLength(1)
@@ -36,6 +41,10 @@ describe('EntityController', () => {
         expect(model.list).toHaveLength(0)
 
         entityController.start()
+        expect(model.list).toHaveLength(0)
+        expect(model.isLoading === true).toBeTruthy()
+
+        await waitFor(() => expect(model.isLoading === false).toBeTruthy())
         expect(model.list).toHaveLength(1)
 
         await api.create({ value: 'v2', translate: 't2' })
@@ -48,6 +57,10 @@ describe('EntityController', () => {
         expect(model.list).toHaveLength(0)
 
         entityController.start()
+        expect(model.list).toHaveLength(0)
+        expect(model.isLoading === true).toBeTruthy()
+
+        await waitFor(() => expect(model.isLoading === false).toBeTruthy())
         expect(model.list).toHaveLength(3)
     })
 })

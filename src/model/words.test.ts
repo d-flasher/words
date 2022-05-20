@@ -1,10 +1,11 @@
 import { autorun } from 'mobx'
 
+import MockError from '../api/mock-error'
 import Word from './word'
 import Words from './words'
 
 describe('Words', () => {
-    test('seters', () => {
+    test('list, add, remove, clear', () => {
         const words = new Words()
         expect(words.list).toHaveLength(0)
 
@@ -30,5 +31,39 @@ describe('Words', () => {
         words.clear()
         expect(words.list).toHaveLength(0)
         expect(fn).toBeCalledTimes(5)
+    })
+
+    test('error', () => {
+        const words = new Words()
+        expect(words.error == null).toBeTruthy()
+
+        const fn = jest.fn()
+        autorun(() => fn(words.error))
+        expect(fn).toBeCalledTimes(1)
+
+        words.error = new MockError()
+        expect(words.error).toBeInstanceOf(MockError)
+        expect(fn).toBeCalledTimes(2)
+
+        words.error = undefined
+        expect(words.error == null).toBeTruthy()
+        expect(fn).toBeCalledTimes(3)
+    })
+
+    test('isLoading', () => {
+        const words = new Words()
+        expect(words.isLoading === false).toBeTruthy()
+
+        const fn = jest.fn()
+        autorun(() => fn(words.isLoading))
+        expect(fn).toBeCalledTimes(1)
+
+        words.isLoading = true
+        expect(words.isLoading === true).toBeTruthy()
+        expect(fn).toBeCalledTimes(2)
+
+        words.isLoading = false
+        expect(words.isLoading === false).toBeTruthy()
+        expect(fn).toBeCalledTimes(3)
     })
 })

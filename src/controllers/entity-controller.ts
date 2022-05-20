@@ -16,7 +16,12 @@ abstract class EntityController<TModels extends IEntities<any>, TClass, TInterfa
 
     start() {
         if (this._unsubscribe) return
+
+        this._model.isLoading = true
+
         this._unsubscribe = this._api.changesTracking(changesData => {
+            this._model.isLoading = false
+
             if (changesData instanceof Error) {
                 this._model.error = changesData
             } else {
