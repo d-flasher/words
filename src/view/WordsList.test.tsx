@@ -3,6 +3,17 @@ import TestUtils from '../utils/test-utils'
 import WordsList from './WordsList'
 
 describe('WordsList', () => {
+    test('loading feedback handling', () => {
+        const { queryByRole, model } = TestUtils.render(<WordsList></WordsList>)
+        expect(queryByRole('progressbar')).not.toBeInTheDocument()
+
+        model.words.isLoading = true
+        expect(queryByRole('progressbar')).toBeInTheDocument()
+
+        model.words.isLoading = false
+        expect(queryByRole('progressbar')).not.toBeInTheDocument()
+    })
+
     test('view', () => {
         const { queryAllByRole, model } = TestUtils.render(<WordsList></WordsList>)
         expect(queryAllByRole('listitem').length).toEqual(0)

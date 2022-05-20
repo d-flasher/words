@@ -9,12 +9,12 @@ describe('AuthManager', () => {
     test('auth state changes handling', async () => {
         const authService: IAuthService = new AuthServiceMock('regular')
         const AUTH_FORM_HEADER = 'Sign in with email'
-        const { queryByText, queryByTestId } = render(
+        const { getByRole, queryByText, queryByTestId } = render(
             <AuthContext.Provider value={authService}>
                 <AuthManager></AuthManager>
             </AuthContext.Provider>
         )
-        const loadingEl = queryByText('Loading...')
+        const loadingEl = getByRole('progressbar')
         expect(loadingEl).toBeInTheDocument()
 
         await waitForElementToBeRemoved(loadingEl)
