@@ -5,12 +5,13 @@ import { Unsubscribe } from '../utils/common-types'
 
 abstract class EntityController<TModels extends IEntities<any>, TClass, TInterface extends IEntity, TPayload> {
     constructor(
-        private _model: TModels,
+        protected _model: TModels,
         private _api: IApiEntity<TInterface, TPayload>,
     ) { }
 
     protected abstract _createEntity(data: TInterface): TClass
     protected abstract _editEntity(target: TClass, data: TInterface): void
+    protected abstract _removeEntity(data: TInterface): void
 
     private _unsubscribe: Unsubscribe | undefined
 
@@ -36,7 +37,7 @@ abstract class EntityController<TModels extends IEntities<any>, TClass, TInterfa
                             if (target) this._editEntity(target, item.data)
                             break
                         case 'removed':
-                            this._model.remove(item.data.id)
+                            this._removeEntity(item.data)
                             break
                     }
                 })

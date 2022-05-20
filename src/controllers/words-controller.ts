@@ -14,5 +14,9 @@ class WordsController extends EntityController<Words, Word, IWord, IWordPayload>
         if (data.value) target.setValue(data.value)
         if (data.translate) target.setTranslate(data.translate)
     }
+
+    protected _removeEntity(data: IWord): void {
+        this._model.remove(data.id)
+    }
 }
 export default WordsController

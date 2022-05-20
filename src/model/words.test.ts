@@ -23,7 +23,7 @@ describe('Words', () => {
         expect(words.list[1]).toEqual(word2)
         expect(fn).toBeCalledTimes(3)
 
-        words.remove(word)
+        words.remove(word.id)
         expect(words.list).toHaveLength(1)
         expect(words.list[0]).toEqual(word2)
         expect(fn).toBeCalledTimes(4)

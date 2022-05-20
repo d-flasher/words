@@ -5,7 +5,7 @@ interface IEntities<T extends IEntity> {
     error: Error | undefined
     isLoading: boolean
     add(v: T): void
-    remove(v: T): void
+    remove(id: string): void
     getById(wordId: string): T | undefined
     clear(): void
 }
