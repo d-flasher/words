@@ -6,5 +6,6 @@ describe('AppController', () => {
     test('default state', () => {
         const controller = new AppController(new AppModel(), new AppApiMock('regular'))
         expect(controller.words == null).not.toBeTruthy()
+        expect(controller.serviceMessages == null).not.toBeTruthy()
     })
 })

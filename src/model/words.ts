@@ -20,9 +20,9 @@ class Words implements IEntities<Word> {
     set isLoading(value: boolean) { this._isLoading = value }
 
     add(v: Word) { this._list.push(v) }
-    remove(v: Word) {
-        const index = this._list.indexOf(v)
-        this._list.splice(index, 1)
+    remove(id: string) {
+        const index = this._list.findIndex(item => item.id === id)
+        if (index >= 0) this._list.splice(index, 1)
     }
 
     getById(wordId: string) {

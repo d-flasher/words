@@ -1,3 +1,4 @@
+import { SnackbarProvider } from 'notistack'
 import { createContext, FC, useEffect, useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
@@ -6,6 +7,7 @@ import AppApiFirebase from '../api/app-api-firebase'
 import AppController from '../controllers/app-controller'
 import AppModel from '../model/app-model'
 import AppRoutes from './AppRoutes'
+import Snackbars from './Snackbars'
 
 const createModel = () => new AppModel()
 export const ModelContext = createContext({} as ReturnType<typeof createModel>)
@@ -26,7 +28,7 @@ const WordsApp: FC = () => {
         return () => {
             controller.words.stop()
         }
-    })
+    }, [])
 
     return (
         <ModelContext.Provider value={model}>
@@ -35,6 +37,9 @@ const WordsApp: FC = () => {
                     <BrowserRouter>
                         <AppRoutes></AppRoutes>
                     </BrowserRouter>
+                    <SnackbarProvider maxSnack={3}>
+                        <Snackbars></Snackbars>
+                    </SnackbarProvider>
                 </ControllerContext.Provider>
             </ApiContext.Provider>
         </ModelContext.Provider>

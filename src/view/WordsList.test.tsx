@@ -26,7 +26,7 @@ describe('WordsList', () => {
         model.words.add(word2)
         expect(queryAllByRole('listitem').length).toEqual(2)
 
-        model.words.remove(word1)
+        model.words.remove(word1.id)
         expect(queryAllByRole('listitem').length).toEqual(1)
     })
 

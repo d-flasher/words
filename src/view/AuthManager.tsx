@@ -14,7 +14,7 @@ const AuthManager: FC = ({ children }) => {
         return authService.onAuthStateChanged(user => {
             setUser(user)
         })
-    })
+    }, [])
 
     if (user === undefined) return (
         <Box sx={{ display: 'flex', justifyContent: 'center', marginTop: 5 }}>
