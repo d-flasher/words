@@ -1,7 +1,7 @@
 import { Unsubscribe } from '../utils/common-types'
 import Emitter from '../utils/emitter'
 
-type ServiceMessageType = 'error' | 'info'
+export type ServiceMessageType = 'error' | 'info'
 export interface IServiceMessage {
     msg: string
     type: ServiceMessageType

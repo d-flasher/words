@@ -7,11 +7,13 @@ import { observer } from 'mobx-react-lite'
 import { FC, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { ApiContext, ModelContext } from './WordsApp'
+import Utils from '../utils/utils'
+import { ApiContext, ControllerContext, ModelContext } from './WordsApp'
 
 const WordItem: FC<{ id: string }> = ({ id }) => {
     const { words } = useContext(ModelContext)
     const api = useContext(ApiContext)
+    const controller = useContext(ControllerContext)
     const navigate = useNavigate()
 
     const data = words.getById(id)
@@ -20,8 +22,12 @@ const WordItem: FC<{ id: string }> = ({ id }) => {
         return <span>{msg}</span>
     }
 
-    const onRemoveBtn = () => {
-        api.words.remove(id)
+    const onRemoveBtn = async () => {
+        try {
+            await api.words.remove(id)
+        } catch (error) {
+            controller.serviceMessages.add(Utils.asError(error).message, 'error')
+        }
     }
 
     const onEditBtn = () => {
