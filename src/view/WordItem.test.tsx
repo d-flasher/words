@@ -40,12 +40,12 @@ describe('WordItem', () => {
         const removeBtn = getByPlaceholderText('remove button')
         TestUtils.elIsAvailable(removeBtn)
 
-        const editWordFn = jest
+        const fn = jest
             .spyOn(ApiWordMock.prototype, 'remove')
             .mockImplementation(() => Promise.resolve())
         fireEvent.click(removeBtn)
-        expect(editWordFn).toBeCalledTimes(1)
-        expect(editWordFn).toHaveBeenCalledWith<Parameters<typeof ApiWordMock.prototype.remove>>('id1')
+        expect(fn).toBeCalledTimes(1)
+        expect(fn).toHaveBeenCalledWith<Parameters<typeof ApiWordMock.prototype.remove>>('id1')
     })
 
     test('select word button', () => {
