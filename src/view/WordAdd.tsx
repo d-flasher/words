@@ -14,8 +14,8 @@ const WordAdd: FC = () => {
 
     const onSave = async (payload: IWordPayload) => {
         try {
-            await api.words.create(payload)
             navigate('/words')
+            await api.words.create(payload)
         } catch (error) {
             serviceMessages.add(Utils.asError(error).message, 'error')
         }

@@ -21,6 +21,7 @@ const WordEditor: FC<{ id: string }> = ({ id }) => {
 
     const onSave = async (payload: IWordPayload) => {
         try {
+            navigate('/words')
             await api.words.edit(id, payload)
         } catch (error) {
             serviceMessages.add(Utils.asError(error).message, 'error')
