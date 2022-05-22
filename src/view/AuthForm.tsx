@@ -8,7 +8,7 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import { ChangeEvent, FC, useContext, useState } from 'react'
 
-import { AuthContext } from './App'
+import { ApiAuthContext } from './App'
 
 const AuthForm: FC = () => {
     const [email, setEmail] = useState('')
@@ -16,7 +16,7 @@ const AuthForm: FC = () => {
     const [emailError, setEmailError] = useState('')
     const [passwordError, setPasswordError] = useState('')
     const [signinError, setSigninError] = useState('')
-    const authService = useContext(AuthContext)
+    const authService = useContext(ApiAuthContext)
 
     const isSigninEnabled = Boolean(email) && Boolean(password)
 

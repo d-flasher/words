@@ -1,8 +1,8 @@
 import { fireEvent, render, waitFor } from '@testing-library/react'
 
-import AuthServiceMock from '../api/auth-service-mock'
+import ApiAuthMock from '../api/api-auth-mock'
 import TestUtils from '../utils/test-utils'
-import { AuthContext } from './App'
+import { ApiAuthContext } from './App'
 import AuthForm from './AuthForm'
 
 beforeEach(() => {
@@ -38,9 +38,9 @@ describe('AuthForm', () => {
 
     test('signin', async () => {
         const { getByLabelText, getByPlaceholderText, queryByText } = render(
-            <AuthContext.Provider value={new AuthServiceMock('regular')}>
+            <ApiAuthContext.Provider value={new ApiAuthMock('regular')}>
                 <AuthForm></AuthForm>
-            </AuthContext.Provider>
+            </ApiAuthContext.Provider>
         )
 
         const email = 'test@email.ru'
@@ -52,19 +52,19 @@ describe('AuthForm', () => {
         TestUtils.changeInputValue(passwordInput, password)
 
         expect(queryByText(/error test message/i)).not.toBeInTheDocument()
-        const fn = jest.spyOn(AuthServiceMock.prototype, 'signIn').mockImplementation(() => Promise.resolve({}))
+        const fn = jest.spyOn(ApiAuthMock.prototype, 'signIn').mockImplementation(() => Promise.resolve({}))
 
         await waitFor(() => fireEvent.click(signinBtn))
         expect(fn).toBeCalledTimes(1)
-        expect(fn).toBeCalledWith<Parameters<typeof AuthServiceMock.prototype.signIn>>(email, password)
+        expect(fn).toBeCalledWith<Parameters<typeof ApiAuthMock.prototype.signIn>>(email, password)
         await waitFor(() => expect(queryByText(/error test message/i)).not.toBeInTheDocument())
     })
 
     test('signin error handling', async () => {
         const { getByLabelText, getByPlaceholderText, queryByText, findByText } = render(
-            <AuthContext.Provider value={new AuthServiceMock('error')}>
+            <ApiAuthContext.Provider value={new ApiAuthMock('error')}>
                 <AuthForm></AuthForm>
-            </AuthContext.Provider>
+            </ApiAuthContext.Provider>
         )
         const emailInput = getByLabelText(/email/i)
         const passwordInput = getByLabelText(/password/i)

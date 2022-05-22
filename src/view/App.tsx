@@ -2,33 +2,33 @@ import { CssBaseline } from '@mui/material'
 import Container from '@mui/material/Container'
 import { createContext, FC, StrictMode, useState } from 'react'
 
-import IAuthService from '../api/auth-service'
-import AuthServiceFirebase from '../api/auth-service-firebase'
+import IApiAuth from '../api/api-auth'
+import ApiAuthFirebase from '../api/api-auth-firebase'
 import InitFirebase from '../api/init-firebase'
 import AppHeader from './AppHeader'
 import AuthManager from './AuthManager'
 import ThemeContainer from './ThemeContainer'
 import WordsApp from './WordsApp'
 
-const createAuthService: () => IAuthService = () => new AuthServiceFirebase()
-export const AuthContext = createContext({} as ReturnType<typeof createAuthService>)
+const createApiAuth: () => IApiAuth = () => new ApiAuthFirebase()
+export const ApiAuthContext = createContext({} as ReturnType<typeof createApiAuth>)
 
 const App: FC = () => {
     useState(() => new InitFirebase())
-    const [authService] = useState(() => createAuthService())
+    const [apiAuth] = useState(() => createApiAuth())
 
     return (
         <StrictMode>
             <ThemeContainer>
                 <CssBaseline>
-                    <AuthContext.Provider value={authService}>
+                    <ApiAuthContext.Provider value={apiAuth}>
                         <AppHeader></AppHeader>
                         <AuthManager>
                             <Container maxWidth="sm">
                                 <WordsApp></WordsApp>
                             </Container>
                         </AuthManager>
-                    </AuthContext.Provider>
+                    </ApiAuthContext.Provider>
                 </CssBaseline>
             </ThemeContainer>
         </StrictMode>

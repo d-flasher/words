@@ -1,14 +1,14 @@
 import { waitFor } from '@testing-library/react'
 
-import IAuthService, { IUser } from './auth-service'
-import AuthServiceMock from './auth-service-mock'
+import IApiAuth, { IUser } from './api-auth'
+import ApiAuthMock from './api-auth-mock'
 import MockError from './mock-error'
 
 type TestUser = IUser | null
 
-describe('AuthServiceMock', () => {
+describe('ApiAuthMock', () => {
     test('regular mode', async () => {
-        const authService: IAuthService = new AuthServiceMock('regular')
+        const authService: IApiAuth = new ApiAuthMock('regular')
 
         const fn = jest.fn<void, [TestUser]>()
         const unsubscribe =
@@ -32,7 +32,7 @@ describe('AuthServiceMock', () => {
     })
 
     test('error mode', async () => {
-        const authService: IAuthService = new AuthServiceMock('error')
+        const authService: IApiAuth = new ApiAuthMock('error')
 
         const fn = jest.fn<void, [TestUser]>()
         authService.onAuthStateChanged(fn)

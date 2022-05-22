@@ -7,13 +7,13 @@ import IconButton from '@mui/material/IconButton'
 import Toolbar from '@mui/material/Toolbar'
 import { FC, useContext, useEffect, useState } from 'react'
 
-import { IUser } from '../api/auth-service'
-import { AuthContext } from './App'
+import { IUser } from '../api/api-auth'
+import { ApiAuthContext } from './App'
 import { ThemeContext } from './ThemeContainer'
 
 const AppHeader: FC = () => {
     const [user, setUser] = useState<IUser | null>(null)
-    const authService = useContext(AuthContext)
+    const authService = useContext(ApiAuthContext)
     const themeContext = useContext(ThemeContext)
 
     useEffect(() => {
