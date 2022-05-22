@@ -1,4 +1,4 @@
-import { ApiWordMock } from '../api/api-entity-mock'
+import { ApiWordMock } from '../api/api-word-mock'
 import Words from '../model/words'
 import WordsController from './words-controller'
 

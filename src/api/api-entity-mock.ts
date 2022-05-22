@@ -1,8 +1,6 @@
 import IEntity from '../model/entity'
-import { IWord, IWordPayload } from '../model/word'
 import { MockType, Unsubscribe } from '../utils/common-types'
 import Emitter, { EmitterCallback } from '../utils/emitter'
-import Utils from '../utils/utils'
 import IApiEntity, { OnChangesFn } from './api-entity'
 import MockError from './mock-error'
 
@@ -122,16 +120,5 @@ export abstract class ApiEntityMock<T extends IEntity, K> implements IApiEntity<
                 }
             }, this._responceDelay)
         })
-    }
-}
-
-export class ApiWordMock extends ApiEntityMock<IWord, IWordPayload> {
-    protected _createFromPayload(payload: IWordPayload): IWord {
-        return { id: Utils.uuid(), value: payload.value, translate: payload.translate }
-    }
-
-    protected _editFromPayload(target: IWord, payload: IWordPayload): void {
-        target.value = payload.value
-        target.translate = payload.translate
     }
 }
