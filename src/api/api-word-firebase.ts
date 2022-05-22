@@ -4,12 +4,15 @@ import {
     CollectionReference,
     deleteDoc,
     doc,
+    FieldValue,
     FirestoreDataConverter,
     getDoc,
     getDocs,
     getFirestore,
     onSnapshot,
+    orderBy,
     query,
+    serverTimestamp,
     setDoc,
     updateDoc,
     where,
@@ -21,6 +24,7 @@ import IApiEntity, { ChangeData, OnChangesFn } from './api-entity'
 
 interface IWordFirebase extends IWord {
     userId: string
+    timestamp: FieldValue
 }
 
 class ApiWordFirebase implements IApiEntity<IWord, IWordPayload> {
@@ -35,7 +39,7 @@ class ApiWordFirebase implements IApiEntity<IWord, IWordPayload> {
         this._uid = auth.currentUser!.uid
 
         const converter_word: FirestoreDataConverter<IWord> = {
-            toFirestore: word => <IWordFirebase>{ userId: this._uid, ...word },
+            toFirestore: word => <IWordFirebase>{ userId: this._uid, timestamp: serverTimestamp(), ...word },
             fromFirestore: snapshot => <IWord>{ id: snapshot.id, ...snapshot.data() },
         }
         this._collectionWords = collection(db, 'words').withConverter(converter_word)
@@ -43,7 +47,7 @@ class ApiWordFirebase implements IApiEntity<IWord, IWordPayload> {
 
     changesTracking(onChanges: OnChangesFn<IWord>): Unsubscribe {
         const unsubscribe = onSnapshot(
-            query(this._collectionWords, where('userId', '==', this._uid)),
+            query(this._collectionWords, where('userId', '==', this._uid), orderBy('timestamp', 'asc')),
             snapshot => {
                 const changes = snapshot.docChanges().map<ChangeData<IWord>>(change => {
                     switch (change.type) {

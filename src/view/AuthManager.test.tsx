@@ -1,18 +1,18 @@
 import { act, render, waitForElementToBeRemoved } from '@testing-library/react'
 
-import IAuthService from '../api/auth-service'
-import AuthServiceMock from '../api/auth-service-mock'
-import { AuthContext } from './App'
+import IApiAuth from '../api/api-auth'
+import ApiAuthMock from '../api/api-auth-mock'
+import { ApiAuthContext } from './App'
 import AuthManager from './AuthManager'
 
 describe('AuthManager', () => {
     test('auth state changes handling', async () => {
-        const authService: IAuthService = new AuthServiceMock('regular')
+        const authService: IApiAuth = new ApiAuthMock('regular')
         const AUTH_FORM_HEADER = 'Sign in with email'
         const { getByRole, queryByText, queryByTestId } = render(
-            <AuthContext.Provider value={authService}>
+            <ApiAuthContext.Provider value={authService}>
                 <AuthManager></AuthManager>
-            </AuthContext.Provider>
+            </ApiAuthContext.Provider>
         )
         const loadingEl = getByRole('progressbar')
         expect(loadingEl).toBeInTheDocument()

@@ -1,11 +1,11 @@
 import { MockType } from '../utils/common-types'
-import { ApiWordMock } from './api-entity-mock'
+import { ApiWordMock } from './api-word-mock'
 
-class AppApiMock {
+class ApiAppMock {
     constructor(
         private _mockType: MockType
     ) { }
 
     words = new ApiWordMock(this._mockType)
 }
-export default AppApiMock
+export default ApiAppMock

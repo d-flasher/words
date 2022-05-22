@@ -1,15 +1,15 @@
 import { makeAutoObservable } from 'mobx'
 
 import IEntities from './entities'
-import Word from './word'
+import Lesson from './lesson'
 
-class Words implements IEntities<Word> {
+class Lessons implements IEntities<Lesson> {
     constructor() {
         makeAutoObservable(this)
     }
 
-    private _list: Word[] = [];
-    get list(): Readonly<Word[]> { return this._list }
+    private _list: Lesson[] = [];
+    get list(): Readonly<Lesson[]> { return this._list }
 
     private _error: Error | undefined
     get error() { return this._error }
@@ -19,7 +19,7 @@ class Words implements IEntities<Word> {
     get isLoading() { return this._isLoading }
     set isLoading(value: boolean) { this._isLoading = value }
 
-    add(v: Word) { this._list.push(v) }
+    add(v: Lesson) { this._list.push(v) }
     remove(id: string) {
         const index = this._list.findIndex(item => item.id === id)
         if (index >= 0) this._list.splice(index, 1)
@@ -33,4 +33,4 @@ class Words implements IEntities<Word> {
         this._list = []
     }
 }
-export default Words
+export default Lessons

@@ -2,13 +2,13 @@ import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
 import { FC, useContext, useEffect, useState } from 'react'
 
-import { IUser } from '../api/auth-service'
-import { AuthContext } from './App'
+import { IUser } from '../api/api-auth'
+import { ApiAuthContext } from './App'
 import AuthForm from './AuthForm'
 
 const AuthManager: FC = ({ children }) => {
     const [user, setUser] = useState<IUser | null | undefined>(undefined)
-    const authService = useContext(AuthContext)
+    const authService = useContext(ApiAuthContext)
 
     useEffect(() => {
         return authService.onAuthStateChanged(user => {

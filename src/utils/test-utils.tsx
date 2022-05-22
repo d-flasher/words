@@ -3,7 +3,7 @@ import { createMemoryHistory, MemoryHistory } from 'history'
 import { ReactElement } from 'react'
 import { Router } from 'react-router-dom'
 
-import AppApiMock from '../api/app-api-mock'
+import ApiAppMock from '../api/api-app-mock'
 import AppController from '../controllers/app-controller'
 import AppModel from '../model/app-model'
 import { ApiContext, ControllerContext, ModelContext } from '../view/WordsApp'
@@ -25,7 +25,7 @@ class TestUtils {
     static render(target: ReactElement, path: string = '/', mockType: MockType = 'regular') {
         const history = createMemoryHistory({ initialEntries: [path] })
         const model = new AppModel()
-        const api = new AppApiMock(mockType)
+        const api = new ApiAppMock(mockType)
         const controller = new AppController(model, api)
         const renderRes = render(
             <ModelContext.Provider value={model}>

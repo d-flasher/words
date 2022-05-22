@@ -1,8 +1,8 @@
 import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from 'firebase/auth'
 
-import IAuthService from './auth-service'
+import IApiAuth from './api-auth'
 
-class AuthServiceFirebase implements IAuthService {
+class ApiAuthFirebase implements IApiAuth {
     signIn(email: string, password: string) {
         return signInWithEmailAndPassword(getAuth(), email, password)
     }
@@ -15,4 +15,4 @@ class AuthServiceFirebase implements IAuthService {
         return onAuthStateChanged(getAuth(), handler)
     }
 }
-export default AuthServiceFirebase
+export default ApiAuthFirebase

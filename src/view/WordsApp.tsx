@@ -2,8 +2,8 @@ import { SnackbarProvider } from 'notistack'
 import { createContext, FC, useEffect, useState } from 'react'
 import { BrowserRouter } from 'react-router-dom'
 
-import IAppApi from '../api/app-api'
-import AppApiFirebase from '../api/app-api-firebase'
+import IApiApp from '../api/api-app'
+import ApiAppFirebase from '../api/api-app-firebase'
 import AppController from '../controllers/app-controller'
 import AppModel from '../model/app-model'
 import AppRoutes from './AppRoutes'
@@ -12,10 +12,10 @@ import Snackbars from './Snackbars'
 const createModel = () => new AppModel()
 export const ModelContext = createContext({} as ReturnType<typeof createModel>)
 
-const createApi: () => IAppApi = () => new AppApiFirebase()
+const createApi: () => IApiApp = () => new ApiAppFirebase()
 export const ApiContext = createContext({} as ReturnType<typeof createApi>)
 
-const createController = (model: AppModel, api: IAppApi) => new AppController(model, api)
+const createController = (model: AppModel, api: IApiApp) => new AppController(model, api)
 export const ControllerContext = createContext({} as ReturnType<typeof createController>)
 
 const WordsApp: FC = () => {
