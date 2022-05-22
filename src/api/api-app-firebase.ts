@@ -1,6 +1,6 @@
 import ApiWordFirebase from './api-word-firebase'
 
-class AppApiFirebase {
+class ApiAppFirebase {
     words = new ApiWordFirebase()
 }
-export default AppApiFirebase
+export default ApiAppFirebase

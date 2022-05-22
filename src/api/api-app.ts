@@ -1,7 +1,7 @@
 import { IWord, IWordPayload } from '../model/word'
 import IApiEntity from './api-entity'
 
-interface IAppApi {
+interface IApiApp {
     words: IApiEntity<IWord, IWordPayload>
 }
-export default IAppApi
+export default IApiApp
