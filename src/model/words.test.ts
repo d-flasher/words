@@ -13,17 +13,17 @@ describe('Words', () => {
         autorun(() => fn(words.list.length))
         expect(fn).toBeCalledTimes(1)
 
-        const word = new Word('id1')
+        const word1 = new Word('id1')
         const word2 = new Word('id2')
 
-        words.add(word)
+        words.add(word1)
         words.add(word2)
         expect(words.list).toHaveLength(2)
-        expect(words.list[0]).toEqual(word)
+        expect(words.list[0]).toEqual(word1)
         expect(words.list[1]).toEqual(word2)
         expect(fn).toBeCalledTimes(3)
 
-        words.remove(word.id)
+        words.remove(word1.id)
         expect(words.list).toHaveLength(1)
         expect(words.list[0]).toEqual(word2)
         expect(fn).toBeCalledTimes(4)

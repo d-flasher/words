@@ -25,8 +25,8 @@ class Words implements IEntities<Word> {
         if (index >= 0) this._list.splice(index, 1)
     }
 
-    getById(wordId: string) {
-        return this._list.find(word => word.id === wordId)
+    getById(id: string) {
+        return this._list.find(item => item.id === id)
     }
 
     clear() {
