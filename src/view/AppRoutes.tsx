@@ -4,13 +4,13 @@ import Drawer from '@mui/material/Drawer'
 import { FC } from 'react'
 import { Navigate, Outlet, Route, Routes, useOutlet, useParams } from 'react-router-dom'
 
-import LessonAdd from './LessonAdd'
-import LessonEditor from './LessonEditor'
-import LessonsList from './LessonsList'
+import LessonAdd from './lesson/LessonAdd'
+import LessonEditor from './lesson/LessonEditor'
+import LessonsList from './lesson/LessonsList'
 import NavTabs from './NavTabs'
-import WordAdd from './WordAdd'
-import WordEditor from './WordEditor'
-import WordsList from './WordsList'
+import WordAdd from './word/WordAdd'
+import WordEditor from './word/WordEditor'
+import WordsList from './word/WordsList'
 
 const BodyOutlet: FC = () => {
     return (

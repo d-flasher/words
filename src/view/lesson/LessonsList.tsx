@@ -8,8 +8,8 @@ import { observer } from 'mobx-react-lite'
 import { FC, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
+import { ModelContext } from '../WordsApp'
 import LessonItem from './LessonItem'
-import { ModelContext } from './WordsApp'
 
 const LessonsList: FC = () => {
     const { lessons } = useContext(ModelContext)
