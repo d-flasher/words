@@ -1,7 +1,7 @@
 import Cancel from '@mui/icons-material/Cancel'
 import CheckCircle from '@mui/icons-material/CheckCircle'
 import Button from '@mui/material/Button'
-import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
 import TextField from '@mui/material/TextField'
 import { observer } from 'mobx-react-lite'
 import { FC, useEffect, useState } from 'react'
@@ -27,22 +27,24 @@ const LessonForm: FC<LessonFormProps> = ({ payload, onSave, onCancel }) => {
     }
 
     return (
-        <Grid container spacing={2}>
-            <Grid item sm={6} xs={12}>
-                <TextField
-                    id="name"
-                    data-testid="value-input"
-                    label="name"
-                    type="text"
-                    variant="outlined"
-                    margin="none"
-                    autoFocus
-                    sx={{ width: '100%' }}
-                    value={name}
-                    onChange={event => setName(event.target.value)}
-                />
-            </Grid>
-            <Grid item sm={2} xs={3}>
+        <Stack
+            spacing={2}
+        >
+            <TextField
+                id="name"
+                data-testid="value-input"
+                label="name"
+                type="text"
+                variant="outlined"
+                margin="none"
+                autoFocus
+                sx={{ width: '100%' }}
+                value={name}
+                onChange={event => setName(event.target.value)}
+            />
+            <Stack
+                direction='row'
+            >
                 <Button
                     type="button"
                     placeholder="save button"
@@ -53,8 +55,6 @@ const LessonForm: FC<LessonFormProps> = ({ payload, onSave, onCancel }) => {
                 >
                     Save
                 </Button>
-            </Grid>
-            <Grid item sm={2} xs={3}>
                 <Button
                     type="button"
                     placeholder="cancel button"
@@ -64,8 +64,8 @@ const LessonForm: FC<LessonFormProps> = ({ payload, onSave, onCancel }) => {
                 >
                     Cancel
                 </Button>
-            </Grid>
-        </Grid>
+            </Stack>
+        </Stack>
     )
 }
 export default observer(LessonForm)
