@@ -25,8 +25,10 @@ const WordsApp: FC = () => {
 
     useEffect(() => {
         controller.words.start()
+        controller.lessons.start()
         return () => {
             controller.words.stop()
+            controller.lessons.stop()
         }
     }, [])
 
