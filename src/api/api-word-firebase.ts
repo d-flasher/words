@@ -30,7 +30,7 @@ interface IWordFirebase extends IWord {
 class ApiWordFirebase implements IApiEntity<IWord, IWordPayload> {
 
     private _uid: string
-    private _collectionWords: CollectionReference<IWord>
+    private _collection: CollectionReference<IWord>
 
     constructor() {
         const db = getFirestore()
@@ -38,16 +38,16 @@ class ApiWordFirebase implements IApiEntity<IWord, IWordPayload> {
 
         this._uid = auth.currentUser!.uid
 
-        const converter_word: FirestoreDataConverter<IWord> = {
-            toFirestore: word => <IWordFirebase>{ userId: this._uid, timestamp: serverTimestamp(), ...word },
+        const converter: FirestoreDataConverter<IWord> = {
+            toFirestore: data => <IWordFirebase>{ userId: this._uid, timestamp: serverTimestamp(), ...data },
             fromFirestore: snapshot => <IWord>{ id: snapshot.id, ...snapshot.data() },
         }
-        this._collectionWords = collection(db, 'words').withConverter(converter_word)
+        this._collection = collection(db, 'words').withConverter(converter)
     }
 
     changesTracking(onChanges: OnChangesFn<IWord>): Unsubscribe {
         const unsubscribe = onSnapshot(
-            query(this._collectionWords, where('userId', '==', this._uid), orderBy('timestamp', 'asc')),
+            query(this._collection, where('userId', '==', this._uid), orderBy('timestamp', 'asc')),
             snapshot => {
                 const changes = snapshot.docChanges().map<ChangeData<IWord>>(change => {
                     switch (change.type) {
@@ -70,28 +70,28 @@ class ApiWordFirebase implements IApiEntity<IWord, IWordPayload> {
     }
 
     async get(id: string): Promise<IWord | null> {
-        const docRef = doc(this._collectionWords, id)
+        const docRef = doc(this._collection, id)
         const resp = await getDoc(docRef)
         return resp.exists() ? resp.data() : null
     }
     async getList(): Promise<IWord[]> {
-        const q = query(this._collectionWords, where('userId', '==', this._uid))
+        const q = query(this._collection, where('userId', '==', this._uid))
         const querySnapshot = await getDocs(q)
         return querySnapshot.docs.map(i => i.data())
     }
 
     async create(payload: IWordPayload): Promise<IWord> {
-        const docRef = doc(this._collectionWords)
+        const docRef = doc(this._collection)
         await setDoc(docRef, payload)
         const docSnap = await getDoc(docRef)
         return docSnap.data()!
     }
     async edit(id: string, payload: IWordPayload): Promise<void> {
-        const docRef = doc(this._collectionWords, id)
+        const docRef = doc(this._collection, id)
         await updateDoc(docRef, payload)
     }
     async remove(id: string): Promise<void> {
-        await deleteDoc(doc(this._collectionWords, id))
+        await deleteDoc(doc(this._collection, id))
     }
 }
 export default ApiWordFirebase
