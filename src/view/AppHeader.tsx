@@ -31,7 +31,7 @@ const AppHeader: FC = () => {
     }
 
     return (
-        <AppBar position="static">
+        <AppBar position="sticky">
             <Toolbar variant="dense">
                 <Box sx={{ width: '100%' }}></Box>
 

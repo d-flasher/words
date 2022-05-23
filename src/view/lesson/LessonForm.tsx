@@ -28,7 +28,7 @@ const LessonForm: FC<LessonFormProps> = ({ payload, onSave, onCancel }) => {
 
     return (
         <Grid container spacing={2}>
-            <Grid item sm={6} xs={12}>
+            <Grid item xs={12}>
                 <TextField
                     id="name"
                     data-testid="value-input"

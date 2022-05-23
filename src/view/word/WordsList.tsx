@@ -46,7 +46,7 @@ const WordsList: FC = () => {
                 color="primary"
                 aria-label="add"
                 placeholder="add button"
-                sx={{ position: 'absolute', bottom: 16, right: 16, }}
+                sx={{ position: 'fixed', bottom: 16, right: 16, }}
                 onClick={onAddBtn}
             >
                 <AddIcon />
