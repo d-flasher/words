@@ -13,8 +13,8 @@ const WordEditor: FC<{ id: string }> = ({ id }) => {
     const api = useContext(ApiContext)
     const { serviceMessages } = useContext(ControllerContext)
 
-    const word = words.getById(id)
-    if (word == null) {
+    const entity = words.getById(id)
+    if (entity == null) {
         const msg = `<не найдено для id: "${id}">`
         return <span>{msg}</span>
     }
@@ -34,7 +34,7 @@ const WordEditor: FC<{ id: string }> = ({ id }) => {
 
     return (
         <WordForm
-            payload={word}
+            payload={entity}
             onSave={onSave}
             onCancel={onCancel}>
         </WordForm>

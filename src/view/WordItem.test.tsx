@@ -48,7 +48,7 @@ describe('WordItem', () => {
         expect(fn).toHaveBeenCalledWith<Parameters<typeof ApiWordMock.prototype.remove>>('id1')
     })
 
-    test('select word button', () => {
+    test('select item button', () => {
         const { getByPlaceholderText, history, model } = TestUtils.render(<WordItem id="id1"></WordItem>)
         const word = new Word('id1')
         model.words.add(word)

@@ -1,6 +1,6 @@
 import { ILesson, ILessonPayload } from '../model/lesson'
 import Utils from '../utils/utils'
-import { ApiEntityMock } from './api-entity-mock'
+import ApiEntityMock from './api-entity-mock'
 
 class ApiLessonMock extends ApiEntityMock<ILesson, ILessonPayload> {
     protected _createFromPayload(payload: ILessonPayload): ILesson {

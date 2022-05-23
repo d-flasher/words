@@ -6,7 +6,7 @@ import MockError from './mock-error'
 
 type ChangesCallbackParameter<T> = Parameters<OnChangesFn<T>>[0]
 
-export abstract class ApiEntityMock<T extends IEntity, K> implements IApiEntity<T, K> {
+abstract class ApiEntityMock<T extends IEntity, K> implements IApiEntity<T, K> {
 
     constructor(
         private _mode: MockType,
@@ -122,3 +122,4 @@ export abstract class ApiEntityMock<T extends IEntity, K> implements IApiEntity<
         })
     }
 }
+export default ApiEntityMock

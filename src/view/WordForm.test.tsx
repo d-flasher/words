@@ -5,13 +5,13 @@ import TestUtils from '../utils/test-utils'
 import WordForm from './WordForm'
 
 describe('WordForm', () => {
-    const init = (wordPayload?: IWordPayload) => {
+    const init = (payload?: IWordPayload) => {
         const onSaveFn = jest.fn()
         const onCancelFn = jest.fn()
         return {
             ...TestUtils.render(
                 <WordForm
-                    payload={wordPayload}
+                    payload={payload}
                     onSave={onSaveFn}
                     onCancel={onCancelFn}>
                 </WordForm>
@@ -48,14 +48,14 @@ describe('WordForm', () => {
         const { getByLabelText } = init({ value: 'v1', translate: 't1' })
 
         const testInput = (label: string, initValue: string) => {
-            const valueInput = getByLabelText(label)
-            expect(valueInput).toHaveValue(initValue)
+            const input = getByLabelText(label)
+            expect(input).toHaveValue(initValue)
 
-            TestUtils.changeInputValue(valueInput, 'newVal')
-            expect(valueInput).toHaveValue('newVal')
+            TestUtils.changeInputValue(input, 'newVal')
+            expect(input).toHaveValue('newVal')
 
-            TestUtils.changeInputValue(valueInput, '')
-            expect(valueInput).toHaveValue('')
+            TestUtils.changeInputValue(input, '')
+            expect(input).toHaveValue('')
         }
         testInput('value', 'v1')
         testInput('translate', 't1')

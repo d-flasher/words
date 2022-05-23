@@ -1,6 +1,6 @@
 import { IWord, IWordPayload } from '../model/word'
 import Utils from '../utils/utils'
-import { ApiEntityMock } from './api-entity-mock'
+import ApiEntityMock from './api-entity-mock'
 
 class ApiWordMock extends ApiEntityMock<IWord, IWordPayload> {
     protected _createFromPayload(payload: IWordPayload): IWord {

@@ -39,7 +39,7 @@ const WordsOutlet: FC = () => {
     )
 }
 
-const WordEditPage: FC = () => {
+const WordEditorPage: FC = () => {
     const { id } = useParams()
     return <WordEditor id={id!}></WordEditor>
 }
@@ -50,7 +50,7 @@ export const AppRoutes: FC = () => (
             <Route index element={<Navigate to="/words"></Navigate>}></Route>
             <Route path="words" element={<WordsOutlet></WordsOutlet>}>
                 <Route path="add" element={<div data-testid="word-page-add"><WordAdd /></div>} />
-                <Route path="edit/:id" element={<div data-testid="word-page-edit"><WordEditPage /></div>} />
+                <Route path="edit/:id" element={<div data-testid="word-page-edit"><WordEditorPage /></div>} />
             </Route>
             <Route
                 path="*"
