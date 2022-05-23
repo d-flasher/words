@@ -1,12 +1,12 @@
 import ApiWordMock from '../api/api-word-mock'
 import Words from '../model/words'
-import WordsController from './words-controller'
+import ControllerWord from './controller-word'
 
-describe('WordsController', () => {
+describe('ControllerWord', () => {
     test('create/edit entity', async () => {
         const api = new ApiWordMock('regular')
         const model = new Words()
-        const entityController = new WordsController(model, api)
+        const entityController = new ControllerWord(model, api)
         entityController.start()
         expect(model.list).toHaveLength(0)
 

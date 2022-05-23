@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom'
 
 import IApiApp from '../api/api-app'
 import ApiAppFirebase from '../api/api-app-firebase'
-import AppController from '../controllers/app-controller'
+import ControllerApp from '../controllers/controller-app'
 import AppModel from '../model/app-model'
 import AppRoutes from './AppRoutes'
 import Snackbars from './Snackbars'
@@ -15,7 +15,7 @@ export const ModelContext = createContext({} as ReturnType<typeof createModel>)
 const createApi: () => IApiApp = () => new ApiAppFirebase()
 export const ApiContext = createContext({} as ReturnType<typeof createApi>)
 
-const createController = (model: AppModel, api: IApiApp) => new AppController(model, api)
+const createController = (model: AppModel, api: IApiApp) => new ControllerApp(model, api)
 export const ControllerContext = createContext({} as ReturnType<typeof createController>)
 
 const WordsApp: FC = () => {

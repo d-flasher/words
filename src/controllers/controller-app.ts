@@ -1,17 +1,17 @@
 import IApiApp from '../api/api-app'
 import AppModel from '../model/app-model'
+import ControllerWord from './controller-word'
 import ServiceMessages from './service-messages'
-import WordsController from './words-controller'
 
-class AppController {
+class ControllerApp {
     constructor(
         model: AppModel,
         api: IApiApp,
     ) {
-        this.words = new WordsController(model.words, api.words)
+        this.words = new ControllerWord(model.words, api.words)
     }
 
-    words: WordsController
+    words: ControllerWord
     serviceMessages = new ServiceMessages()
 }
-export default AppController
+export default ControllerApp

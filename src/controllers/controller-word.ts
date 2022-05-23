@@ -1,8 +1,8 @@
 import Word, { IWord, IWordPayload } from '../model/word'
 import Words from '../model/words'
-import EntityController from './entity-controller'
+import ControllerEntity from './controller-entity'
 
-class WordsController extends EntityController<Words, Word, IWord, IWordPayload> {
+class ControllerWord extends ControllerEntity<Words, Word, IWord, IWordPayload> {
     protected _createEntity(data: IWord): Word {
         const word = new Word(data.id)
         if (data.value) word.setValue(data.value)
@@ -19,4 +19,4 @@ class WordsController extends EntityController<Words, Word, IWord, IWordPayload>
         this._model.remove(data.id)
     }
 }
-export default WordsController
+export default ControllerWord
