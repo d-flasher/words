@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react'
 
-import { ApiWordMock } from '../api/api-word-mock'
+import ApiWordMock from '../api/api-word-mock'
 import TestUtils from '../utils/test-utils'
 import WordAdd from './WordAdd'
 

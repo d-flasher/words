@@ -18,19 +18,19 @@ import {
     where,
 } from 'firebase/firestore'
 
-import { IWord, IWordPayload } from '../model/word'
+import { ILesson, ILessonPayload } from '../model/lesson'
 import { Unsubscribe } from '../utils/common-types'
 import IApiEntity, { ChangeData, OnChangesFn } from './api-entity'
 
-interface IWordFirebase extends IWord {
+interface ILessonFirebase extends ILesson {
     userId: string
     timestamp: FieldValue
 }
 
-class ApiWordFirebase implements IApiEntity<IWord, IWordPayload> {
+class ApiLessonFirebase implements IApiEntity<ILesson, ILessonPayload> {
 
     private _uid: string
-    private _collection: CollectionReference<IWord>
+    private _collection: CollectionReference<ILesson>
 
     constructor() {
         const db = getFirestore()
@@ -38,18 +38,18 @@ class ApiWordFirebase implements IApiEntity<IWord, IWordPayload> {
 
         this._uid = auth.currentUser!.uid
 
-        const converter: FirestoreDataConverter<IWord> = {
-            toFirestore: data => <IWordFirebase>{ userId: this._uid, timestamp: serverTimestamp(), ...data },
-            fromFirestore: snapshot => <IWord>{ id: snapshot.id, ...snapshot.data() },
+        const converter: FirestoreDataConverter<ILesson> = {
+            toFirestore: data => <ILessonFirebase>{ userId: this._uid, timestamp: serverTimestamp(), ...data },
+            fromFirestore: snapshot => <ILesson>{ id: snapshot.id, ...snapshot.data() },
         }
-        this._collection = collection(db, 'words').withConverter(converter)
+        this._collection = collection(db, 'lesson').withConverter(converter)
     }
 
-    changesTracking(onChanges: OnChangesFn<IWord>): Unsubscribe {
+    changesTracking(onChanges: OnChangesFn<ILesson>): Unsubscribe {
         const unsubscribe = onSnapshot(
             query(this._collection, where('userId', '==', this._uid), orderBy('timestamp', 'asc')),
             snapshot => {
-                const changes = snapshot.docChanges().map<ChangeData<IWord>>(change => {
+                const changes = snapshot.docChanges().map<ChangeData<ILesson>>(change => {
                     switch (change.type) {
                         case 'added':
                             return { data: change.doc.data(), type: 'added' }
@@ -69,24 +69,24 @@ class ApiWordFirebase implements IApiEntity<IWord, IWordPayload> {
         return unsubscribe
     }
 
-    async get(id: string): Promise<IWord | null> {
+    async get(id: string): Promise<ILesson | null> {
         const docRef = doc(this._collection, id)
         const resp = await getDoc(docRef)
         return resp.exists() ? resp.data() : null
     }
-    async getList(): Promise<IWord[]> {
+    async getList(): Promise<ILesson[]> {
         const q = query(this._collection, where('userId', '==', this._uid))
         const querySnapshot = await getDocs(q)
         return querySnapshot.docs.map(i => i.data())
     }
 
-    async create(payload: IWordPayload): Promise<IWord> {
+    async create(payload: ILessonPayload): Promise<ILesson> {
         const docRef = doc(this._collection)
         await setDoc(docRef, payload)
         const docSnap = await getDoc(docRef)
         return docSnap.data()!
     }
-    async edit(id: string, payload: IWordPayload): Promise<void> {
+    async edit(id: string, payload: ILessonPayload): Promise<void> {
         const docRef = doc(this._collection, id)
         await updateDoc(docRef, payload)
     }
@@ -94,4 +94,4 @@ class ApiWordFirebase implements IApiEntity<IWord, IWordPayload> {
         await deleteDoc(doc(this._collection, id))
     }
 }
-export default ApiWordFirebase
+export default ApiLessonFirebase

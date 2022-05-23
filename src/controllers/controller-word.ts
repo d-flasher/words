@@ -1,13 +1,13 @@
 import Word, { IWord, IWordPayload } from '../model/word'
 import Words from '../model/words'
-import EntityController from './entity-controller'
+import ControllerEntity from './controller-entity'
 
-class WordsController extends EntityController<Words, Word, IWord, IWordPayload> {
+class ControllerWord extends ControllerEntity<Words, Word, IWord, IWordPayload> {
     protected _createEntity(data: IWord): Word {
-        const word = new Word(data.id)
-        if (data.value) word.setValue(data.value)
-        if (data.translate) word.setTranslate(data.translate)
-        return word
+        const entity = new Word(data.id)
+        if (data.value) entity.setValue(data.value)
+        if (data.translate) entity.setTranslate(data.translate)
+        return entity
     }
 
     protected _editEntity(target: Word, data: IWord): void {
@@ -19,4 +19,4 @@ class WordsController extends EntityController<Words, Word, IWord, IWordPayload>
         this._model.remove(data.id)
     }
 }
-export default WordsController
+export default ControllerWord

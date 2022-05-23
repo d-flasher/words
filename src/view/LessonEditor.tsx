@@ -2,42 +2,42 @@ import { observer } from 'mobx-react-lite'
 import { FC, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { IWordPayload } from '../model/word'
+import { ILessonPayload } from '../model/lesson'
 import Utils from '../utils/utils'
-import WordForm from './WordForm'
+import LessonForm from './LessonForm'
 import { ApiContext, ControllerContext, ModelContext } from './WordsApp'
 
-const WordEditor: FC<{ id: string }> = ({ id }) => {
+const LessonEditor: FC<{ id: string }> = ({ id }) => {
     const navigate = useNavigate()
-    const { words } = useContext(ModelContext)
+    const { lessons } = useContext(ModelContext)
     const api = useContext(ApiContext)
     const { serviceMessages } = useContext(ControllerContext)
 
-    const entity = words.getById(id)
+    const entity = lessons.getById(id)
     if (entity == null) {
         const msg = `<не найдено для id: "${id}">`
         return <span>{msg}</span>
     }
 
-    const onSave = async (payload: IWordPayload) => {
+    const onSave = async (payload: ILessonPayload) => {
         try {
-            navigate('/words')
-            await api.words.edit(id, payload)
+            navigate('/lessons')
+            await api.lessons.edit(id, payload)
         } catch (error) {
             serviceMessages.add(Utils.asError(error).message, 'error')
         }
     }
 
     const onCancel = () => {
-        navigate('/words')
+        navigate('/lessons')
     }
 
     return (
-        <WordForm
+        <LessonForm
             payload={entity}
             onSave={onSave}
             onCancel={onCancel}>
-        </WordForm>
+        </LessonForm>
     )
 }
-export default observer(WordEditor)
+export default observer(LessonEditor)

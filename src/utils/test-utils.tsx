@@ -4,7 +4,7 @@ import { ReactElement } from 'react'
 import { Router } from 'react-router-dom'
 
 import ApiAppMock from '../api/api-app-mock'
-import AppController from '../controllers/app-controller'
+import ControllerApp from '../controllers/controller-app'
 import AppModel from '../model/app-model'
 import { ApiContext, ControllerContext, ModelContext } from '../view/WordsApp'
 import { MockType } from './common-types'
@@ -26,7 +26,7 @@ class TestUtils {
         const history = createMemoryHistory({ initialEntries: [path] })
         const model = new AppModel()
         const api = new ApiAppMock(mockType)
-        const controller = new AppController(model, api)
+        const controller = new ControllerApp(model, api)
         const renderRes = render(
             <ModelContext.Provider value={model}>
                 <ApiContext.Provider value={api}>

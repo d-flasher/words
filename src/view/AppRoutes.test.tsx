@@ -10,6 +10,10 @@ describe('AppRoutes', () => {
         ${'/words'}             | ${['body-outlet', 'words-outlet']}
         ${'/words/edit/1'}      | ${['body-outlet', 'words-outlet', 'word-page-edit']}
         ${'/words/add'}         | ${['body-outlet', 'words-outlet', 'word-page-add']}
+
+        ${'/lessons'}           | ${['body-outlet', 'lessons-outlet']}
+        ${'/lessons/edit/1'}    | ${['body-outlet', 'lessons-outlet', 'lesson-page-edit']}
+        ${'/lessons/add'}       | ${['body-outlet', 'lessons-outlet', 'lesson-page-add']}
     `('in path "$path" to be pages: "$pages"', ({ path, pages }) => {
         const { queryByTestId } = TestUtils.render(<AppRoutes></AppRoutes>, path)
         const pagesAsArr = pages as string[]

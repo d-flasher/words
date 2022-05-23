@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react'
 
-import { ApiEntityMock } from '../api/api-entity-mock'
+import ApiWordMock from '../api/api-word-mock'
 import Word from '../model/word'
 import TestUtils from '../utils/test-utils'
 import WordEditor from './WordEditor'
@@ -8,10 +8,10 @@ import WordEditor from './WordEditor'
 describe('WordEditor', () => {
     const renderEditor = () => {
         const renderRes = TestUtils.render(<WordEditor id="id1"></WordEditor>)
-        const word = new Word('id1')
-        word.setValue('v1')
-        word.setTranslate('t1')
-        renderRes.model.words.add(word)
+        const entity = new Word('id1')
+        entity.setValue('v1')
+        entity.setTranslate('t1')
+        renderRes.model.words.add(entity)
         return renderRes
     }
 
@@ -37,11 +37,11 @@ describe('WordEditor', () => {
         TestUtils.changeInputValue(getByLabelText('translate'), 't2')
 
         const btn = getByPlaceholderText('save button')
-        const editWordFn = jest.spyOn(ApiEntityMock.prototype, 'edit').mockImplementation(() => Promise.resolve())
+        const editFn = jest.spyOn(ApiWordMock.prototype, 'edit').mockImplementation(() => Promise.resolve())
 
-        expect(editWordFn).toBeCalledTimes(0)
+        expect(editFn).toBeCalledTimes(0)
         fireEvent.click(btn)
-        expect(editWordFn).toBeCalledTimes(1)
-        expect(editWordFn).toBeCalledWith<Parameters<typeof ApiEntityMock.prototype.edit>>('id1', { value: 'v2', translate: 't2' })
+        expect(editFn).toBeCalledTimes(1)
+        expect(editFn).toBeCalledWith<Parameters<typeof ApiWordMock.prototype.edit>>('id1', { value: 'v2', translate: 't2' })
     })
 })

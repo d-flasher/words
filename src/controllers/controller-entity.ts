@@ -3,7 +3,7 @@ import IEntities from '../model/entities'
 import IEntity from '../model/entity'
 import { Unsubscribe } from '../utils/common-types'
 
-abstract class EntityController<TModels extends IEntities<any>, TClass, TInterface extends IEntity, TPayload> {
+abstract class ControllerEntity<TModels extends IEntities<any>, TClass, TInterface extends IEntity, TPayload> {
     constructor(
         protected _model: TModels,
         private _api: IApiEntity<TInterface, TPayload>,
@@ -53,4 +53,4 @@ abstract class EntityController<TModels extends IEntities<any>, TClass, TInterfa
         }
     }
 }
-export default EntityController
+export default ControllerEntity

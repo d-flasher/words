@@ -1,6 +1,6 @@
 import { fireEvent } from '@testing-library/react'
 
-import { ApiWordMock } from '../api/api-word-mock'
+import ApiWordMock from '../api/api-word-mock'
 import Word from '../model/word'
 import TestUtils from '../utils/test-utils'
 import WordItem from './WordItem'
@@ -48,7 +48,7 @@ describe('WordItem', () => {
         expect(fn).toHaveBeenCalledWith<Parameters<typeof ApiWordMock.prototype.remove>>('id1')
     })
 
-    test('select word button', () => {
+    test('select item button', () => {
         const { getByPlaceholderText, history, model } = TestUtils.render(<WordItem id="id1"></WordItem>)
         const word = new Word('id1')
         model.words.add(word)

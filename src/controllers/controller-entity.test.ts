@@ -1,16 +1,16 @@
 import { waitFor } from '@testing-library/react'
 
-import { ApiWordMock } from '../api/api-word-mock'
+import ApiWordMock from '../api/api-word-mock'
 import Words from '../model/words'
 import { MockType } from '../utils/common-types'
-import WordsController from './words-controller'
+import ControllerWord from './controller-word'
 
-describe('EntityController', () => {
+describe('ControllerEntity', () => {
 
     const init = (type: MockType) => {
         const api = new ApiWordMock(type)
         const model = new Words()
-        const entityController = new WordsController(model, api)
+        const entityController = new ControllerWord(model, api)
         return { api, model, entityController }
     }
 

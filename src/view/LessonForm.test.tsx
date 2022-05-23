@@ -1,20 +1,20 @@
 import { fireEvent } from '@testing-library/react'
 
-import { IWordPayload } from '../model/word'
+import { ILessonPayload } from '../model/lesson'
 import TestUtils from '../utils/test-utils'
-import WordForm from './WordForm'
+import LessonForm from './LessonForm'
 
-describe('WordForm', () => {
-    const init = (payload?: IWordPayload) => {
+describe('LessonForm', () => {
+    const init = (payload?: ILessonPayload) => {
         const onSaveFn = jest.fn()
         const onCancelFn = jest.fn()
         return {
             ...TestUtils.render(
-                <WordForm
+                <LessonForm
                     payload={payload}
                     onSave={onSaveFn}
                     onCancel={onCancelFn}>
-                </WordForm>
+                </LessonForm>
             ),
             onSaveFn, onCancelFn,
         }
@@ -28,24 +28,22 @@ describe('WordForm', () => {
             TestUtils.elIsAvailable(inputEl)
             expect(inputEl).toHaveValue('')
         }
-        testInput('value')
-        testInput('translate')
+        testInput('name')
     })
 
     test('view not null', () => {
-        const { getByLabelText } = init({ value: 'v1', translate: 't1' })
+        const { getByLabelText } = init({ name: 'n1' })
 
         const testInput = (label: string, value: string) => {
             const inputEl = getByLabelText(label)
             TestUtils.elIsAvailable(inputEl)
             expect(inputEl).toHaveValue(value)
         }
-        testInput('value', 'v1')
-        testInput('translate', 't1')
+        testInput('name', 'n1')
     })
 
     test('inputs interraction', () => {
-        const { getByLabelText } = init({ value: 'v1', translate: 't1' })
+        const { getByLabelText } = init({ name: 'n1' })
 
         const testInput = (label: string, initValue: string) => {
             const input = getByLabelText(label)
@@ -57,25 +55,22 @@ describe('WordForm', () => {
             TestUtils.changeInputValue(input, '')
             expect(input).toHaveValue('')
         }
-        testInput('value', 'v1')
-        testInput('translate', 't1')
+        testInput('name', 'n1')
     })
 
     test.each`
-        a       | b       | saveBtn  | cancelBtn
-        ${null} | ${null} | ${false} | ${true}
-        ${''}   | ${''}   | ${false} | ${true}
-        ${'v1'} | ${''}   | ${false} | ${true}
-        ${''}   | ${'t1'} | ${false} | ${true}
-        ${'v1'} | ${'t1'} | ${true}  | ${true}
-    `('saveBtn: "$saveBtn", cancelBtn: "$cancelBtn" (value: "$a", translate: "$b")', ({ a, b, saveBtn, cancelBtn }) => {
-        const { getByPlaceholderText } = init({ value: a, translate: b })
+        a       | saveBtn  | cancelBtn
+        ${null} | ${false} | ${true}
+        ${''}   | ${false} | ${true}
+        ${'n1'} | ${true}  | ${true}
+    `('saveBtn: "$saveBtn", cancelBtn: "$cancelBtn" (name: "$a")', ({ a, saveBtn, cancelBtn }) => {
+        const { getByPlaceholderText } = init({ name: a })
         TestUtils.elIsAvailable(getByPlaceholderText('save button'), saveBtn)
         TestUtils.elIsAvailable(getByPlaceholderText('cancel button'), cancelBtn)
     })
 
     test('cancel button', () => {
-        const { getByPlaceholderText, onCancelFn } = init({ value: '', translate: '' })
+        const { getByPlaceholderText, onCancelFn } = init({ name: '' })
         const btn = getByPlaceholderText('cancel button')
 
         expect(onCancelFn).toBeCalledTimes(0)
@@ -84,12 +79,12 @@ describe('WordForm', () => {
     })
 
     test('save button', () => {
-        const { getByPlaceholderText, onSaveFn } = init({ value: 'v1', translate: 't1' })
+        const { getByPlaceholderText, onSaveFn } = init({ name: 'n1' })
         const btn = getByPlaceholderText('save button')
 
         expect(onSaveFn).toBeCalledTimes(0)
         fireEvent.click(btn)
         expect(onSaveFn).toBeCalledTimes(1)
-        expect(onSaveFn).toHaveBeenCalledWith<[IWordPayload]>({ value: 'v1', translate: 't1' })
+        expect(onSaveFn).toHaveBeenCalledWith<[ILessonPayload]>({ name: 'n1' })
     })
 })
