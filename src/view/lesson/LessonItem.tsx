@@ -7,8 +7,8 @@ import { observer } from 'mobx-react-lite'
 import { FC, useContext } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import Utils from '../utils/utils'
-import { ApiContext, ControllerContext, ModelContext } from './WordsApp'
+import Utils from '../../utils/utils'
+import { ApiContext, ControllerContext, ModelContext } from '../WordsApp'
 
 const LessonItem: FC<{ id: string }> = ({ id }) => {
     const { lessons } = useContext(ModelContext)

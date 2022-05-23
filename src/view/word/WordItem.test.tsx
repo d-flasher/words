@@ -1,8 +1,8 @@
 import { fireEvent } from '@testing-library/react'
 
-import ApiWordMock from '../api/api-word-mock'
-import Word from '../model/word'
-import TestUtils from '../utils/test-utils'
+import ApiWordMock from '../../api/api-word-mock'
+import Word from '../../model/word'
+import TestUtils from '../../utils/test-utils'
 import WordItem from './WordItem'
 
 describe('WordItem', () => {

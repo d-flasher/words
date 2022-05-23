@@ -1,7 +1,7 @@
 import { fireEvent } from '@testing-library/react'
 
-import ApiLessonMock from '../api/api-lesson-mock'
-import TestUtils from '../utils/test-utils'
+import ApiLessonMock from '../../api/api-lesson-mock'
+import TestUtils from '../../utils/test-utils'
 import LessonAdd from './LessonAdd'
 
 describe('LessonAdd', () => {

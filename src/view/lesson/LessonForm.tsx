@@ -6,55 +6,40 @@ import TextField from '@mui/material/TextField'
 import { observer } from 'mobx-react-lite'
 import { FC, useEffect, useState } from 'react'
 
-import { IWordPayload } from '../model/word'
+import { ILessonPayload } from '../../model/lesson'
 
-type WordFormProps = {
-    payload?: IWordPayload,
-    onSave: (payload: IWordPayload) => void,
+type LessonFormProps = {
+    payload?: ILessonPayload,
+    onSave: (payload: ILessonPayload) => void,
     onCancel: () => void,
 }
 
-const WordForm: FC<WordFormProps> = ({ payload, onSave, onCancel }) => {
-    const [value, setValue] = useState(payload?.value || '')
-    const [translate, setTranslate] = useState(payload?.translate || '')
+const LessonForm: FC<LessonFormProps> = ({ payload, onSave, onCancel }) => {
+    const [name, setName] = useState(payload?.name || '')
 
     useEffect(() => {
-        setValue(payload?.value || '')
-        setTranslate(payload?.translate || '')
+        setName(payload?.name || '')
     }, [payload])
 
-    const isSaveDisabled = !Boolean(value && translate)
+    const isSaveDisabled = !Boolean(name)
     const onSaveInner = () => {
-        onSave({ value, translate })
+        onSave({ name })
     }
 
     return (
         <Grid container spacing={2}>
             <Grid item sm={6} xs={12}>
                 <TextField
-                    id="value"
+                    id="name"
                     data-testid="value-input"
-                    label="value"
+                    label="name"
                     type="text"
                     variant="outlined"
                     margin="none"
                     autoFocus
                     sx={{ width: '100%' }}
-                    value={value}
-                    onChange={event => setValue(event.target.value)}
-                />
-            </Grid>
-            <Grid item sm={6} xs={12}>
-                <TextField
-                    id="translate"
-                    data-testid="translate-input"
-                    label="translate"
-                    type="text"
-                    variant="outlined"
-                    margin="none"
-                    sx={{ width: '100%' }}
-                    value={translate}
-                    onChange={event => setTranslate(event.target.value)}
+                    value={name}
+                    onChange={event => setName(event.target.value)}
                 />
             </Grid>
             <Grid item sm={2} xs={3}>
@@ -83,4 +68,4 @@ const WordForm: FC<WordFormProps> = ({ payload, onSave, onCancel }) => {
         </Grid>
     )
 }
-export default observer(WordForm)
+export default observer(LessonForm)

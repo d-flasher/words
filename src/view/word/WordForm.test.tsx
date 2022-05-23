@@ -1,20 +1,20 @@
 import { fireEvent } from '@testing-library/react'
 
-import { ILessonPayload } from '../model/lesson'
-import TestUtils from '../utils/test-utils'
-import LessonForm from './LessonForm'
+import { IWordPayload } from '../../model/word'
+import TestUtils from '../../utils/test-utils'
+import WordForm from './WordForm'
 
-describe('LessonForm', () => {
-    const init = (payload?: ILessonPayload) => {
+describe('WordForm', () => {
+    const init = (payload?: IWordPayload) => {
         const onSaveFn = jest.fn()
         const onCancelFn = jest.fn()
         return {
             ...TestUtils.render(
-                <LessonForm
+                <WordForm
                     payload={payload}
                     onSave={onSaveFn}
                     onCancel={onCancelFn}>
-                </LessonForm>
+                </WordForm>
             ),
             onSaveFn, onCancelFn,
         }
@@ -28,22 +28,24 @@ describe('LessonForm', () => {
             TestUtils.elIsAvailable(inputEl)
             expect(inputEl).toHaveValue('')
         }
-        testInput('name')
+        testInput('value')
+        testInput('translate')
     })
 
     test('view not null', () => {
-        const { getByLabelText } = init({ name: 'n1' })
+        const { getByLabelText } = init({ value: 'v1', translate: 't1' })
 
         const testInput = (label: string, value: string) => {
             const inputEl = getByLabelText(label)
             TestUtils.elIsAvailable(inputEl)
             expect(inputEl).toHaveValue(value)
         }
-        testInput('name', 'n1')
+        testInput('value', 'v1')
+        testInput('translate', 't1')
     })
 
     test('inputs interraction', () => {
-        const { getByLabelText } = init({ name: 'n1' })
+        const { getByLabelText } = init({ value: 'v1', translate: 't1' })
 
         const testInput = (label: string, initValue: string) => {
             const input = getByLabelText(label)
@@ -55,22 +57,25 @@ describe('LessonForm', () => {
             TestUtils.changeInputValue(input, '')
             expect(input).toHaveValue('')
         }
-        testInput('name', 'n1')
+        testInput('value', 'v1')
+        testInput('translate', 't1')
     })
 
     test.each`
-        a       | saveBtn  | cancelBtn
-        ${null} | ${false} | ${true}
-        ${''}   | ${false} | ${true}
-        ${'n1'} | ${true}  | ${true}
-    `('saveBtn: "$saveBtn", cancelBtn: "$cancelBtn" (name: "$a")', ({ a, saveBtn, cancelBtn }) => {
-        const { getByPlaceholderText } = init({ name: a })
+        a       | b       | saveBtn  | cancelBtn
+        ${null} | ${null} | ${false} | ${true}
+        ${''}   | ${''}   | ${false} | ${true}
+        ${'v1'} | ${''}   | ${false} | ${true}
+        ${''}   | ${'t1'} | ${false} | ${true}
+        ${'v1'} | ${'t1'} | ${true}  | ${true}
+    `('saveBtn: "$saveBtn", cancelBtn: "$cancelBtn" (value: "$a", translate: "$b")', ({ a, b, saveBtn, cancelBtn }) => {
+        const { getByPlaceholderText } = init({ value: a, translate: b })
         TestUtils.elIsAvailable(getByPlaceholderText('save button'), saveBtn)
         TestUtils.elIsAvailable(getByPlaceholderText('cancel button'), cancelBtn)
     })
 
     test('cancel button', () => {
-        const { getByPlaceholderText, onCancelFn } = init({ name: '' })
+        const { getByPlaceholderText, onCancelFn } = init({ value: '', translate: '' })
         const btn = getByPlaceholderText('cancel button')
 
         expect(onCancelFn).toBeCalledTimes(0)
@@ -79,12 +84,12 @@ describe('LessonForm', () => {
     })
 
     test('save button', () => {
-        const { getByPlaceholderText, onSaveFn } = init({ name: 'n1' })
+        const { getByPlaceholderText, onSaveFn } = init({ value: 'v1', translate: 't1' })
         const btn = getByPlaceholderText('save button')
 
         expect(onSaveFn).toBeCalledTimes(0)
         fireEvent.click(btn)
         expect(onSaveFn).toBeCalledTimes(1)
-        expect(onSaveFn).toHaveBeenCalledWith<[ILessonPayload]>({ name: 'n1' })
+        expect(onSaveFn).toHaveBeenCalledWith<[IWordPayload]>({ value: 'v1', translate: 't1' })
     })
 })
