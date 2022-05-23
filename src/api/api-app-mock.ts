@@ -1,5 +1,5 @@
 import { MockType } from '../utils/common-types'
-import { ApiWordMock } from './api-word-mock'
+import ApiWordMock from './api-word-mock'
 
 class ApiAppMock {
     constructor(

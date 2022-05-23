@@ -2,7 +2,7 @@ import { IWord, IWordPayload } from '../model/word'
 import Utils from '../utils/utils'
 import { ApiEntityMock } from './api-entity-mock'
 
-export class ApiWordMock extends ApiEntityMock<IWord, IWordPayload> {
+class ApiWordMock extends ApiEntityMock<IWord, IWordPayload> {
     protected _createFromPayload(payload: IWordPayload): IWord {
         return { id: Utils.uuid(), value: payload.value, translate: payload.translate }
     }
@@ -12,3 +12,4 @@ export class ApiWordMock extends ApiEntityMock<IWord, IWordPayload> {
         target.translate = payload.translate
     }
 }
+export default ApiWordMock

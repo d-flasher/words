@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react'
 
-import { ApiWordMock } from '../api/api-word-mock'
+import ApiWordMock from '../api/api-word-mock'
 import Words from '../model/words'
 import { MockType } from '../utils/common-types'
 import WordsController from './words-controller'

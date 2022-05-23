@@ -2,7 +2,7 @@ import { waitFor } from '@testing-library/react'
 
 import { IWord } from '../model/word'
 import { OnChangesFn } from './api-entity'
-import { ApiWordMock } from './api-word-mock'
+import ApiWordMock from './api-word-mock'
 import MockError from './mock-error'
 
 describe('ApiEntityMock', () => {
