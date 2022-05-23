@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom'
 import Utils from '../../utils/utils'
 import { ApiContext, ControllerContext, ModelContext } from '../WordsApp'
 
-const WordItem: FC<{ id: string }> = ({ id }) => {
+const WordItem: FC<{ id: string, divider?: boolean }> = ({ id, divider }) => {
     const { words } = useContext(ModelContext)
     const api = useContext(ApiContext)
     const controller = useContext(ControllerContext)
@@ -39,7 +39,7 @@ const WordItem: FC<{ id: string }> = ({ id }) => {
 
     return (
         <ListItem
-            divider
+            divider={divider}
             secondaryAction={
                 <IconButton
                     edge="end"

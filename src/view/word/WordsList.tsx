@@ -31,8 +31,12 @@ const WordsList: FC = () => {
         navigate('add')
     }
 
-    const list = words.list.map(item => (
-        <WordItem key={item.id} id={item.id}></WordItem>
+    const list = words.list.map((item, index) => (
+        <WordItem
+            key={item.id}
+            id={item.id}
+            divider={index < (words.list.length - 1)}
+        ></WordItem>
     ))
 
     return (
