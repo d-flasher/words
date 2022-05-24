@@ -16,14 +16,16 @@ type LessonFormProps = {
 
 const LessonForm: FC<LessonFormProps> = ({ payload, onSave, onCancel }) => {
     const [name, setName] = useState(payload?.name || '')
+    const [wordsIds, setWordsIds] = useState<List_WordsIds>(payload?.wordsIds)
 
     useEffect(() => {
         setName(payload?.name || '')
+        setWordsIds(payload?.wordsIds)
     }, [payload])
 
     const isSaveDisabled = !Boolean(name)
     const onSaveInner = () => {
-        onSave({ name })
+        onSave({ name, wordsIds })
     }
 
     return (

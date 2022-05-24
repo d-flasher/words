@@ -78,13 +78,17 @@ describe('LessonForm', () => {
         expect(onCancelFn).toBeCalledTimes(1)
     })
 
-    test('save button', () => {
-        const { getByPlaceholderText, onSaveFn } = init({ name: 'n1' })
+    test.each`
+        name    | wordsIds          | result
+        ${'n1'} | ${undefined}      | ${{ name: 'n1' }}
+        ${'n1'} | ${['id1', 'id2']} | ${{ name: 'n1', wordsIds: ['id1', 'id2'] }}
+    `('save button fire (name: "$name", wordsIds: "$wordsIds", result: "$result")', ({ name, wordsIds, result }) => {
+        const { getByPlaceholderText, onSaveFn } = init({ name, wordsIds })
         const btn = getByPlaceholderText('save button')
 
         expect(onSaveFn).toBeCalledTimes(0)
         fireEvent.click(btn)
         expect(onSaveFn).toBeCalledTimes(1)
-        expect(onSaveFn).toHaveBeenCalledWith<[ILessonPayload]>({ name: 'n1' })
+        expect(onSaveFn).toHaveBeenCalledWith<[ILessonPayload]>(result)
     })
 })
