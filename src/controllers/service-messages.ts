@@ -17,6 +17,7 @@ class ServiceMessages {
     }
 
     add(message: string, type: ServiceMessageType) {
+        if (type === 'error') console.warn(message)
         this._emitter.emit({ msg: message, type: type })
     }
 }

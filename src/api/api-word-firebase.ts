@@ -2,7 +2,6 @@ import { getAuth } from 'firebase/auth'
 import {
     collection,
     CollectionReference,
-    deleteDoc,
     doc,
     FieldValue,
     FirestoreDataConverter,
@@ -16,8 +15,10 @@ import {
     setDoc,
     updateDoc,
     where,
+    writeBatch,
 } from 'firebase/firestore'
 
+import { ILessonPayload } from '../model/lesson'
 import { IWord, IWordPayload } from '../model/word'
 import { Unsubscribe } from '../utils/common-types'
 import IApiEntity, { ChangeData, OnChangesFn } from './api-entity'
@@ -91,7 +92,28 @@ class ApiWordFirebase implements IApiEntity<IWord, IWordPayload> {
         await updateDoc(docRef, payload)
     }
     async remove(id: string): Promise<void> {
-        await deleteDoc(doc(this._collection, id))
+        const db = getFirestore()
+        const batch = writeBatch(db)
+
+        // get related lessons
+        const lessonsCol = collection(db, 'lesson')
+        const querySnapshot = await getDocs(
+            query(lessonsCol, where('userId', '==', this._uid), where('wordsIds', 'array-contains', id))
+        )
+
+        // delete link to word in lessons
+        querySnapshot.docs.forEach(docSnapshot => {
+            const lessonData = docSnapshot.data() as ILessonPayload
+            if (lessonData.wordsIds) {
+                const lessonNewWords = lessonData.wordsIds.filter(i => i !== id)
+                batch.set(docSnapshot.ref, <ILessonPayload>{ wordsIds: lessonNewWords }, { merge: true })
+            }
+        })
+
+        // delete word
+        batch.delete(doc(this._collection, id))
+
+        await batch.commit()
     }
 }
 export default ApiWordFirebase
