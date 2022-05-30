@@ -39,6 +39,7 @@ const WordItem: FC<{ id: string, divider?: boolean }> = ({ id, divider }) => {
 
     return (
         <ListItem
+            disableGutters
             divider={divider}
             secondaryAction={
                 <IconButton

@@ -22,6 +22,7 @@ const WordSelectItem: FC<IWordSelectItemProps> = ({ divider, word, selected, onC
         <ListItem
             divider={divider}
             data-testid={word.id}
+            disableGutters
         >
             <ListItemButton
                 onClick={onClick}

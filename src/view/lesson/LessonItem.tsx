@@ -38,6 +38,7 @@ const LessonItem: FC<{ id: string }> = ({ id }) => {
 
     return (
         <ListItem
+            disableGutters
             divider
             secondaryAction={
                 <IconButton
