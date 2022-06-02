@@ -9,6 +9,7 @@ describe('LessonItem', () => {
     test('error handling', () => {
         const { queryByText, queryByPlaceholderText } = TestUtils.render(<LessonItem id="id1"></LessonItem>)
         expect(queryByText(/не найдено/i)).toBeInTheDocument()
+        expect(queryByPlaceholderText('start button')).not.toBeInTheDocument()
         expect(queryByPlaceholderText('edit button')).not.toBeInTheDocument()
         expect(queryByPlaceholderText('remove button')).not.toBeInTheDocument()
     })
@@ -29,6 +30,17 @@ describe('LessonItem', () => {
         lesson.setName('n1')
         expect(queryByText(/имя пустое/i)).not.toBeInTheDocument()
         expect(queryByText(/n1/i)).toBeInTheDocument()
+    })
+
+    test('start button', () => {
+        const { getByPlaceholderText, history } = init()
+
+        const startBtn = getByPlaceholderText('start button')
+        TestUtils.elIsAvailable(startBtn)
+
+        expect(history.location.pathname).toBe('/')
+        fireEvent.click(startBtn)
+        expect(history.location.pathname).toBe('/start/id1')
     })
 
     test('remove button', () => {

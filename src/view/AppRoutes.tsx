@@ -73,6 +73,10 @@ const LessonEditorPage: FC = () => {
     return <LessonEditor id={id!}></LessonEditor>
 }
 
+const LessonStartPage: FC = () => {
+    return <b>StartedLesson</b>
+}
+
 export const AppRoutes: FC = () => (
     <Routes>
         <Route path="/" element={<BodyOutlet></BodyOutlet>}>
@@ -84,6 +88,7 @@ export const AppRoutes: FC = () => (
             <Route path="lessons" element={<LessonsOutlet></LessonsOutlet>}>
                 <Route path="add" element={<div data-testid="lesson-page-add"><LessonAdd /></div>} />
                 <Route path="edit/:id" element={<div data-testid="lesson-page-edit"><LessonEditorPage /></div>} />
+                <Route path="start/:id" element={<div data-testid="lesson-page-start"><LessonStartPage /></div>} />
             </Route>
             <Route
                 path="*"
