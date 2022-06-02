@@ -1,4 +1,5 @@
 import DeleteIcon from '@mui/icons-material/Delete'
+import PlayCircleOutline from '@mui/icons-material/PlayCircleOutline'
 import IconButton from '@mui/material/IconButton'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
@@ -51,9 +52,15 @@ const LessonItem: FC<{ id: string }> = ({ id }) => {
                 </IconButton>
             }
         >
+            <IconButton
+                placeholder="start button"
+                onClick={() => navigate(`start/${id}`)}
+            >
+                <PlayCircleOutline />
+            </IconButton>
             <ListItemButton
                 onClick={() => onEditBtn()}
-                placeholder="lesson item"
+                placeholder="edit button"
             >
                 <ListItemText
                     primary={value}

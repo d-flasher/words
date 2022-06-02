@@ -15,5 +15,14 @@ class Utils {
         return error instanceof Error ? error : { message: String(error) }
     }
 
+    static isStringsEqual(str1: string | undefined | null, str2: string | undefined | null): boolean {
+        if (str1 == null || str2 == null) return false
+        return str1.trim().toLowerCase() === str2.trim().toLowerCase()
+    }
+
+    static getRandomNum(from: number, to: number) {
+        const l = to - from
+        return from + Math.round(Math.random() * l)
+    }
 }
 export default Utils

@@ -8,6 +8,7 @@ import LessonAdd from './lesson/LessonAdd'
 import LessonEditor from './lesson/LessonEditor'
 import LessonsList from './lesson/LessonsList'
 import NavTabs from './NavTabs'
+import StartedLesson from './started-lesson/StartedLesson'
 import WordAdd from './word/WordAdd'
 import WordEditor from './word/WordEditor'
 import WordsList from './word/WordsList'
@@ -73,6 +74,11 @@ const LessonEditorPage: FC = () => {
     return <LessonEditor id={id!}></LessonEditor>
 }
 
+const LessonStartPage: FC = () => {
+    const { id } = useParams()
+    return <StartedLesson id={id!}></StartedLesson>
+}
+
 export const AppRoutes: FC = () => (
     <Routes>
         <Route path="/" element={<BodyOutlet></BodyOutlet>}>
@@ -84,6 +90,7 @@ export const AppRoutes: FC = () => (
             <Route path="lessons" element={<LessonsOutlet></LessonsOutlet>}>
                 <Route path="add" element={<div data-testid="lesson-page-add"><LessonAdd /></div>} />
                 <Route path="edit/:id" element={<div data-testid="lesson-page-edit"><LessonEditorPage /></div>} />
+                <Route path="start/:id" element={<div data-testid="lesson-page-start"><LessonStartPage /></div>} />
             </Route>
             <Route
                 path="*"
