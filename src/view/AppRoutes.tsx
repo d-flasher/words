@@ -8,6 +8,7 @@ import LessonAdd from './lesson/LessonAdd'
 import LessonEditor from './lesson/LessonEditor'
 import LessonsList from './lesson/LessonsList'
 import NavTabs from './NavTabs'
+import StartedLesson from './started-lesson/StartedLesson'
 import WordAdd from './word/WordAdd'
 import WordEditor from './word/WordEditor'
 import WordsList from './word/WordsList'
@@ -74,7 +75,8 @@ const LessonEditorPage: FC = () => {
 }
 
 const LessonStartPage: FC = () => {
-    return <b>StartedLesson</b>
+    const { id } = useParams()
+    return <StartedLesson id={id!}></StartedLesson>
 }
 
 export const AppRoutes: FC = () => (
