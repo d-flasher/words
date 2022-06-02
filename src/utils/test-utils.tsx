@@ -48,5 +48,9 @@ class TestUtils {
         fireEvent.click(el)
         expect(history.location.pathname).toBe(path)
     }
+
+    static keyDown_Enter(el: HTMLElement) {
+        fireEvent.keyDown(el, { key: 'Enter' })
+    }
 }
 export default TestUtils
