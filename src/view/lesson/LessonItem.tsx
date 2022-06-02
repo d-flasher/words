@@ -53,7 +53,7 @@ const LessonItem: FC<{ id: string }> = ({ id }) => {
         >
             <ListItemButton
                 onClick={() => onEditBtn()}
-                placeholder="lesson item"
+                placeholder="edit button"
             >
                 <ListItemText
                     primary={value}
