@@ -64,6 +64,7 @@ const LessonItem: FC<{ id: string }> = ({ id }) => {
             >
                 <ListItemText
                     primary={value}
+                    className="lowercase"
                 />
             </ListItemButton>
         </ListItem>

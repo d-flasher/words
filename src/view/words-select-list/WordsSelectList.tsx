@@ -41,6 +41,7 @@ const WordSelectItem: FC<IWordSelectItemProps> = ({ divider, word, selected, onC
                     id={word.id}
                     primary={word.value}
                     secondary={word.translate}
+                    className="lowercase"
                 />
             </ListItemButton>
         </ListItem>

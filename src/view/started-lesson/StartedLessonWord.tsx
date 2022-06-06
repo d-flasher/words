@@ -50,6 +50,7 @@ const StartedLessonWord: FC<IStartedLessonWordProps> = ({ word: currentWord, onN
                     variant="h4"
                     data-testid="value-label"
                     sx={{ textAlign: 'center' }}
+                    className="lowercase"
                 >
                     {currentWord.value}
                 </Typography>
@@ -74,6 +75,7 @@ const StartedLessonWord: FC<IStartedLessonWordProps> = ({ word: currentWord, onN
                             variant="h6"
                             data-testid="value-label"
                             sx={{ textAlign: 'center' }}
+                            className="lowercase"
                         >
                             {currentWord.translate}
                         </Typography>
@@ -81,6 +83,7 @@ const StartedLessonWord: FC<IStartedLessonWordProps> = ({ word: currentWord, onN
                     <Alert
                         variant="outlined"
                         severity={isNext.isError ? 'error' : 'success'}
+                        className="lowercase"
                     >
                         {isNext.isError ? <s>{translate}</s> : translate}
                     </Alert>
@@ -92,6 +95,7 @@ const StartedLessonWord: FC<IStartedLessonWordProps> = ({ word: currentWord, onN
                         placeholder="next word button"
                         onClick={() => onNextClick()}
                         ref={node => setTimeout(() => node?.focus(), 100)}
+                        className="lowercase"
                     />
                 </>
             }
