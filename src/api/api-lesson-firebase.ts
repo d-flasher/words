@@ -39,8 +39,8 @@ class ApiLessonFirebase implements IApiEntity<ILesson, ILessonPayload> {
         this._uid = auth.currentUser!.uid
 
         const converter: FirestoreDataConverter<ILesson> = {
-            toFirestore: data => <ILessonFirebase>{ userId: this._uid, timestamp: serverTimestamp(), ...data },
-            fromFirestore: snapshot => <ILesson>{ id: snapshot.id, ...snapshot.data() },
+            toFirestore: data => ({ userId: this._uid, timestamp: serverTimestamp(), ...data } as ILessonFirebase),
+            fromFirestore: snapshot => ({ id: snapshot.id, ...snapshot.data() } as ILesson),
         }
         this._collection = collection(db, 'lesson').withConverter(converter)
     }

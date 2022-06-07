@@ -59,6 +59,7 @@ const WordItem: FC<{ id: string, divider?: boolean }> = ({ id, divider }) => {
                 <ListItemText
                     primary={value}
                     secondary={translate}
+                    className="lowercase"
                 />
             </ListItemButton>
         </ListItem>
