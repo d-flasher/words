@@ -1,5 +1,7 @@
 import ServiceMessages, { IServiceMessage } from './service-messages'
 
+jest.spyOn(global.console, 'warn')
+
 describe('ServiceMessages', () => {
     test('subscribe', () => {
         const serviceMessages = new ServiceMessages()
