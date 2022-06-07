@@ -14,7 +14,7 @@ const getAndRemove = (prev: Word | null, words: Word[]) => {
     let remainingTry = 3
     let randomIndex: number = Number.NaN
 
-    while (result == null || (result == prev && remainingTry > 0)) {
+    while (result === null || (result === prev && remainingTry > 0)) {
         randomIndex = Utils.getRandomNum(0, words.length - 1)
         result = words[randomIndex]
         remainingTry--

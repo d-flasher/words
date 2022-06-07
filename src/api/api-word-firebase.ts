@@ -40,8 +40,8 @@ class ApiWordFirebase implements IApiEntity<IWord, IWordPayload> {
         this._uid = auth.currentUser!.uid
 
         const converter: FirestoreDataConverter<IWord> = {
-            toFirestore: data => <IWordFirebase>{ userId: this._uid, timestamp: serverTimestamp(), ...data },
-            fromFirestore: snapshot => <IWord>{ id: snapshot.id, ...snapshot.data() },
+            toFirestore: data => ({ userId: this._uid, timestamp: serverTimestamp(), ...data } as IWordFirebase),
+            fromFirestore: snapshot => ({ id: snapshot.id, ...snapshot.data() } as IWord),
         }
         this._collection = collection(db, 'words').withConverter(converter)
     }
@@ -106,7 +106,7 @@ class ApiWordFirebase implements IApiEntity<IWord, IWordPayload> {
             const lessonData = docSnapshot.data() as ILessonPayload
             if (lessonData.wordsIds) {
                 const lessonNewWords = lessonData.wordsIds.filter(i => i !== id)
-                batch.set(docSnapshot.ref, <ILessonPayload>{ wordsIds: lessonNewWords }, { merge: true })
+                batch.set(docSnapshot.ref, { wordsIds: lessonNewWords } as ILessonPayload, { merge: true })
             }
         })
 

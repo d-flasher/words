@@ -30,7 +30,7 @@ const WordsApp: FC = () => {
             controller.words.stop()
             controller.lessons.stop()
         }
-    }, [])
+    }, [controller.words, controller.lessons])
 
     return (
         <ModelContext.Provider value={model}>

@@ -28,7 +28,7 @@ const StartedLesson: FC<{ id: string }> = ({ id }) => {
                 setWordsModels(wordsModels.length ? wordsModels as Word[] : null)
             }
         })
-    }, [id])
+    }, [id, lessons, words])
 
     return (
         <Stack

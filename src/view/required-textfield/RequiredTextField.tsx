@@ -11,7 +11,7 @@ const RequiredTextField: FC<RequiredTextFieldProps> = ({ onErrorChange, ...props
     useEffect(() => {
         const isError = () => {
             if (!isChanges.current) return false
-            if (props.value == undefined) return true
+            if (props.value === undefined) return true
             return String(props.value).length === 0
         }
         setError(isError())

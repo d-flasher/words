@@ -20,7 +20,7 @@ const AppHeader: FC = () => {
         return authService.onAuthStateChanged(user => {
             setUser(user)
         })
-    }, [])
+    }, [authService])
 
     const onSignout = () => authService.signOut()
 
