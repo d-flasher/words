@@ -11,11 +11,11 @@ describe('StartedLessonWords', () => {
     })
 
     test('regular work', () => {
-        const wordsRaw = ['1', '2']
-        const words: Word[] = wordsRaw.map(item => {
-            const result = new Word('id' + item)
-            result.setValue(item)
-            result.setTranslate(item)
+        const words_ValueTranslate: { [v: string]: string } = { 'v1': 't1', 'v2': 't2' }
+        const words: Word[] = Object.entries(words_ValueTranslate).map(([v, t]) => {
+            const result = new Word(v)
+            result.setValue(v)
+            result.setTranslate(t)
             return result
         })
 
@@ -25,12 +25,13 @@ describe('StartedLessonWords', () => {
 
         expect(queryByPlaceholderText('complete alert')).not.toBeInTheDocument()
 
-        Array(6).fill('').forEach((item, index) => {
-            expect(getByText(`${index + 1}/6`)).toBeInTheDocument()
+        const length = words.length * 3
+        Array(length).fill('').forEach((item, index) => {
+            expect(getByText(`${index + 1}/${length}`)).toBeInTheDocument()
 
             const valueLabel = getByTestId('value-label')
             const translateInput = getByLabelText(/translate/i)
-            TestUtils.changeInputValue(translateInput, valueLabel.innerHTML)
+            TestUtils.changeInputValue(translateInput, words_ValueTranslate[valueLabel.innerHTML])
             TestUtils.keyDown_Enter(translateInput)
             fireEvent.click(getByPlaceholderText('next word button'))
         })

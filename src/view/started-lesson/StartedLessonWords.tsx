@@ -24,6 +24,10 @@ const getAndRemove = (prev: Word | null, words: Word[]) => {
     return result
 }
 
+export const getLessonWords = (initWords: Word[]) => {
+    return [...initWords, ...initWords, ...initWords]
+}
+
 interface IState {
     remainingWords: Word[]
     current: Word | null
@@ -33,7 +37,7 @@ interface IState {
 
 const StartedLessonWords: FC<{ words: Word[] }> = ({ words: initWords }) => {
     const [state, setState] = useState<IState>(() => {
-        const words = [...initWords, ...initWords, ...initWords]
+        const words = getLessonWords(initWords)
         const initWordsLength = words.length
 
         const result = getAndRemove(null, words)
