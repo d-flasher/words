@@ -2,7 +2,7 @@ import { fireEvent, render } from '@testing-library/react'
 
 import { IWordPayload } from '../../model/word'
 import TestUtils from '../../utils/test-utils'
-import StartedLessonWords from './StartedLessonWords'
+import StartedLessonWords, { getLessonWords } from './StartedLessonWords'
 
 describe('StartedLessonWords', () => {
     test('empty words', () => {
@@ -10,10 +10,41 @@ describe('StartedLessonWords', () => {
         expect(queryByPlaceholderText('complete alert')).toBeInTheDocument()
     })
 
+    test('getLessonWords', () => {
+        const initWords: IWordPayload[] = [
+            { value: 'v1', translate: 't1' },
+            { value: 'v2', translate: 't2' },
+        ]
+        const initResult: IWordPayload[] = [
+            // firs copy
+            { value: 'v1', translate: 't1' },
+            { value: 'v2', translate: 't2' },
+            // second copy
+            { value: 'v1', translate: 't1' },
+            { value: 'v2', translate: 't2' },
+            // third copy
+            { value: 'v1', translate: 't1' },
+            { value: 'v2', translate: 't2' },
+        ]
+        expect(initResult.length).toBe(6)
+
+        const result = getLessonWords(initWords)
+        result.forEach(resultItem => {
+            const foundIndex = initResult.findIndex(item => item.value === resultItem.value && item.translate === resultItem.translate)
+            if (foundIndex >= 0) {
+                initResult.splice(foundIndex, 1)
+            }
+        })
+
+        expect(initResult.length).toBe(0)
+    })
+
     test('regular work', () => {
-        const words_ValueTranslate: { [v: string]: string } = { 'v1': 't1', 'v2': 't2' }
-        const words: IWordPayload[] = Object.entries(words_ValueTranslate)
-            .map(([v, t]) => ({ value: v, translate: t }))
+        const words: IWordPayload[] = [
+            { value: 'v1', translate: 't1' },
+            { value: 'v2', translate: 't2' },
+        ]
+        const resultWords: IWordPayload[] = getLessonWords(words)
 
         const {
             queryByPlaceholderText, getByTestId, getByPlaceholderText, getByLabelText, getByText
@@ -21,13 +52,16 @@ describe('StartedLessonWords', () => {
 
         expect(queryByPlaceholderText('complete alert')).not.toBeInTheDocument()
 
-        const length = words.length * 3
+        const length = resultWords.length
         Array(length).fill('').forEach((item, index) => {
             expect(getByText(`${index + 1}/${length}`)).toBeInTheDocument()
 
             const valueLabel = getByTestId('value-label')
             const translateInput = getByLabelText(/translate/i)
-            TestUtils.changeInputValue(translateInput, words_ValueTranslate[valueLabel.innerHTML])
+
+            const resultItem = resultWords.find(item => item.value === valueLabel.innerHTML)
+
+            TestUtils.changeInputValue(translateInput, resultItem!.translate!)
             TestUtils.keyDown_Enter(translateInput)
             fireEvent.click(getByPlaceholderText('next word button'))
         })
