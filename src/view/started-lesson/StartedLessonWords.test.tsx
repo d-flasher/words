@@ -1,6 +1,6 @@
 import { fireEvent, render } from '@testing-library/react'
 
-import Word from '../../model/word'
+import { IWordPayload } from '../../model/word'
 import TestUtils from '../../utils/test-utils'
 import StartedLessonWords from './StartedLessonWords'
 
@@ -12,12 +12,8 @@ describe('StartedLessonWords', () => {
 
     test('regular work', () => {
         const words_ValueTranslate: { [v: string]: string } = { 'v1': 't1', 'v2': 't2' }
-        const words: Word[] = Object.entries(words_ValueTranslate).map(([v, t]) => {
-            const result = new Word(v)
-            result.setValue(v)
-            result.setTranslate(t)
-            return result
-        })
+        const words: IWordPayload[] = Object.entries(words_ValueTranslate)
+            .map(([v, t]) => ({ value: v, translate: t }))
 
         const {
             queryByPlaceholderText, getByTestId, getByPlaceholderText, getByLabelText, getByText
