@@ -7,12 +7,12 @@ import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import { FC, useRef, useState } from 'react'
 
-import Word from '../../model/word'
+import { IWordPayload } from '../../model/word'
 import Utils from '../../utils/utils'
 import RequiredTextField from '../required-textfield/RequiredTextField'
 
 interface IStartedLessonWordProps {
-    word: Word
+    word: IWordPayload
     onNext: (isError: boolean) => void
 }
 

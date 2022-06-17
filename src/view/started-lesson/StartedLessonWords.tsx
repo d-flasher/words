@@ -2,15 +2,15 @@ import Alert from '@mui/material/Alert'
 import Stack from '@mui/material/Stack'
 import { FC, useState } from 'react'
 
-import Word from '../../model/word'
+import { IWordPayload } from '../../model/word'
 import Utils from '../../utils/utils'
 import ProgressbarLabel from '../progressbar-label/ProgressbarLabel'
 import StartedLessonWord from './StartedLessonWord'
 
-const getAndRemove = (prev: Word | null, words: Word[]) => {
+const getAndRemove = (prev: IWordPayload | null, words: IWordPayload[]) => {
     if (words.length === 0) return null
 
-    let result: Word | null = null
+    let result: IWordPayload | null = null
     let remainingTry = 3
     let randomIndex: number = Number.NaN
 
@@ -24,16 +24,21 @@ const getAndRemove = (prev: Word | null, words: Word[]) => {
     return result
 }
 
+export const getLessonWords = (initWords: IWordPayload[]) => {
+    const invertedItems: IWordPayload[] = initWords.map(({ value, translate }) => ({ value: translate, translate: value }))
+    return [...initWords, ...initWords, ...invertedItems]
+}
+
 interface IState {
-    remainingWords: Word[]
-    current: Word | null
+    remainingWords: IWordPayload[]
+    current: IWordPayload | null
     wordQueue: number
     initWordsLength: number
 }
 
-const StartedLessonWords: FC<{ words: Word[] }> = ({ words: initWords }) => {
+const StartedLessonWords: FC<{ words: IWordPayload[] }> = ({ words: initWords }) => {
     const [state, setState] = useState<IState>(() => {
-        const words = [...initWords, ...initWords, ...initWords]
+        const words = getLessonWords(initWords)
         const initWordsLength = words.length
 
         const result = getAndRemove(null, words)
