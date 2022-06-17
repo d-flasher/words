@@ -22,9 +22,9 @@ describe('StartedLessonWords', () => {
             // second copy
             { value: 'v1', translate: 't1' },
             { value: 'v2', translate: 't2' },
-            // third copy
-            { value: 'v1', translate: 't1' },
-            { value: 'v2', translate: 't2' },
+            // inverted copy (value => translate, translate => value)
+            { value: 't1', translate: 'v1' },
+            { value: 't2', translate: 'v2' },
         ]
         expect(initResult.length).toBe(6)
 

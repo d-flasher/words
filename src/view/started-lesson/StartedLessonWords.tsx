@@ -25,7 +25,8 @@ const getAndRemove = (prev: IWordPayload | null, words: IWordPayload[]) => {
 }
 
 export const getLessonWords = (initWords: IWordPayload[]) => {
-    return [...initWords, ...initWords, ...initWords]
+    const invertedItems: IWordPayload[] = initWords.map(({ value, translate }) => ({ value: translate, translate: value }))
+    return [...initWords, ...initWords, ...invertedItems]
 }
 
 interface IState {
