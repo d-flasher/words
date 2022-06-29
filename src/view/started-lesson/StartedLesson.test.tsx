@@ -11,7 +11,7 @@ const StartedLessonWords_Mock = (props: any) => {
 jest.mock('./StartedLessonWords', () => StartedLessonWords_Mock)
 
 describe('StartedLesson', () => {
-    test('regular word', () => {
+    test('regular work', () => {
         const { model } = TestUtils.render(<StartedLesson id="id1" />);
 
         ['1', '2'].forEach(i => {
