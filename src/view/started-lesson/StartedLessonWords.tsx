@@ -7,6 +7,18 @@ import Utils from '../../utils/utils'
 import ProgressbarLabel from '../progressbar-label/ProgressbarLabel'
 import StartedLessonWord from './StartedLessonWord'
 
+export function isEqual_words(a: IWordPayload | null, b: IWordPayload | null): boolean {
+    if (a === b) return true
+    if (a == null || b == null) return false
+    if (
+        a.value === b.value
+        || a.value === b.translate
+        || a.translate === b.value
+    ) return true
+
+    return false
+}
+
 const getAndRemove = (prev: IWordPayload | null, words: IWordPayload[]) => {
     if (words.length === 0) return null
 
@@ -14,7 +26,7 @@ const getAndRemove = (prev: IWordPayload | null, words: IWordPayload[]) => {
     let remainingTry = 3
     let randomIndex: number = Number.NaN
 
-    while (result === null || (result === prev && remainingTry > 0)) {
+    while (result === null || (isEqual_words(result, prev) && remainingTry > 0)) {
         randomIndex = Utils.getRandomNum(0, words.length - 1)
         result = words[randomIndex]
         remainingTry--

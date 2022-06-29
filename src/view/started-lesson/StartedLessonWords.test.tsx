@@ -2,9 +2,24 @@ import { fireEvent, render } from '@testing-library/react'
 
 import { IWordPayload } from '../../model/word'
 import TestUtils from '../../utils/test-utils'
-import StartedLessonWords, { getLessonWords } from './StartedLessonWords'
+import StartedLessonWords, { getLessonWords, isEqual_words } from './StartedLessonWords'
 
 describe('StartedLessonWords', () => {
+    test.each`
+        a               | b               | result
+        ${null}         | ${null}         | ${true}
+        ${null}         | ${['v1', 't1']} | ${false}
+        ${['v1', 't1']} | ${null}         | ${false}
+
+        ${['v1', 't1']} | ${['v2', 't2']} | ${false}
+        ${['v1', 't1']} | ${['v1', 't1']} | ${true}
+        ${['v1', 't1']} | ${['t1', 'v1']} | ${true}
+    `('isEqual_words', ({ a, b, result }) => {
+        const wordA = a ? { value: a[0], translate: a[1] } : null
+        const wordB = b ? { value: b[0], translate: b[1] } : null
+        expect(isEqual_words(wordA, wordB) === result).toBeTruthy()
+    })
+
     test('empty words', () => {
         const { queryByPlaceholderText } = render(<StartedLessonWords words={[]} />)
         expect(queryByPlaceholderText('complete alert')).toBeInTheDocument()
